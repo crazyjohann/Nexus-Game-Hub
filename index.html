@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Game Hub | Ultimate Game Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Added new fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;500;700&family=Poppins:wght@300;400;600&family=Oswald:wght@400;700&family=Roboto:wght@400;500&family=Bebas+Neue&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Default fonts (Theme 1) */
+            --font-heading: 'Rajdhani', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+            
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --neon-pink: #ff0055;
+            --dark-bg: #0f0c29;
+        }
+        
+        /* Font Themes */
+        .font-theme-1 {
+            --font-heading: 'Rajdhani', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+        .font-theme-2 {
+            --font-heading: 'Oswald', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+        .font-theme-3 {
+            --font-heading: 'Bebas Neue', cursive;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            
+            /* Default properties - background-color set by bg-theme-X class */
+            /* background-size: 400% 400%; */ /* Removed animation */
+            /* animation: galaxy-animate 25s ease infinite; */ /* Removed animation */
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* New Solid Background Themes */
+        body.bg-theme-1 { background-color: #0d1117; }
+        body.bg-theme-2 { background-color: #3a0ca3; }
+        body.bg-theme-3 { background-color: #b71c1c; }
+        body.bg-theme-4 { background-color: #004d40; }
+        body.bg-theme-5 { background-color: #1e3a8a; }
+        body.bg-theme-6 { background-color: #1b1b1b; }
+        body.bg-theme-7 { background-color: #4a148c; }
+        body.bg-theme-8 { background-color: #b91d73; }
+        body.bg-theme-9 { background-color: #3a6186; }
+        body.bg-theme-10 { background-color: #4e342e; }
+        body.bg-theme-11 { background-color: #01579b; }
+        body.bg-theme-12 { background-color: #267871; }
+
+
+        /* @keyframes galaxy-animate { ... } */ /* Removed animation */
+
+        /* Light Theme */
+        body.light-theme {
+            background-image: none !important; /* Use !important to override theme classes */
+            background-color: #f0f2f5 !important; /* Use !important to override theme classes */
+            animation: none;
+            color: #1a202c;
+        }
+
+        body.light-theme .glass-panel,
+        body.light-theme .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            color: #1a202c;
+        }
+        
+        body.light-theme h1, body.light-theme h2, body.light-theme h3,
+        body.light-theme .text-white {
+            color: #2d3748;
+        }
+
+        body.light-theme h1.text-white {
+             background: linear-gradient(to right, #2d3748, #4a5568);
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        body.light-theme p, 
+        body.light-theme span,
+        body.light-theme .text-gray-400,
+        body.light-theme .text-gray-300,
+        body.light-theme .text-gray-200,
+        body.light-theme .text-gray-600 {
+            color: #4a5568;
+        }
+        
+        body.light-theme #theme-toggle {
+            color: #4a5568;
+        }
+        body.light-theme #theme-toggle:hover {
+            color: #1a202c;
+        }
+
+        body.light-theme #search-bar::placeholder {
+            color: #718096;
+        }
+
+        body.light-theme #genre-filter {
+            background: rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.1);
+            color: #1a202c; /* Dark text for light mode */
+        }
+
+        /* Make the selected option text more readable */
+        #genre-filter {
+            color: #e0e0e0; /* Brighter white for dark mode */
+        }
+
+        /* Style for dropdown options */
+        select option {
+            background-color: #0f0c29; /* Match dark BG */
+            color: white;
+        }
+
+        body.light-theme select option {
+            background-color: #ffffff;
+            color: #1a202c;
+        }
+
+        /* New styles for Featured section */
+        h2.section-title {
+            font-family: var(--font-heading);
+            font-size: 2rem; /* 32px */
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem; /* 24px */
+            padding-left: 1rem; /* 16px */
+            border-left: 4px solid var(--neon-blue);
+        }
+        
+        body.light-theme h2.section-title {
+            border-left-color: #3182ce;
+        }
+
+        /* Horizontal scroll container */
+        .featured-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem; /* 24px */
+            padding: 1rem;
+            margin-bottom: 2.5rem; /* 40px */
+            /* Custom scrollbar for featured */
+            scrollbar-width: thin;
+            scrollbar-color: var(--glass-highlight) transparent;
+        }
+
+        .featured-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .featured-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .featured-container::-webkit-scrollbar-thumb {
+            background-color: var(--glass-border);
+            border-radius: 4px;
+        }
+        .featured-container::-webkit-scrollbar-thumb:hover {
+            background-color: var(--glass-highlight);
+        }
+
+        body.light-theme .featured-container::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+         body.light-theme .featured-container::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Featured card style */
+        .featured-card {
+            flex: 0 0 20rem; /* 320px */
+            height: 280px; /* Same height as regular cards */
+        }
+        
+        /* New Theme Modal Styles */
+        .theme-swatch {
+            width: 100%;
+            height: 4rem; /* 64px */
+            border-radius: 0.5rem; /* 8px */
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.2s ease;
+        }
+        .theme-swatch:hover, .theme-swatch.active {
+            border-color: var(--neon-blue);
+            transform: scale(1.05);
+        }
+        body.light-theme .theme-swatch:hover, body.light-theme .theme-swatch.active {
+            border-color: #3182ce;
+        }
+        
+        .font-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        .font-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--neon-blue);
+        }
+        .font-btn.active {
+            background: var(--neon-blue);
+            color: #0f0c29;
+            font-weight: bold;
+        }
+        body.light-theme .font-btn {
+            background: rgba(0,0,0,0.03);
+            border-color: rgba(0,0,0,0.1);
+        }
+        body.light-theme .font-btn:hover {
+            background: rgba(0,0,0,0.05);
+            border-color: #3182ce;
+        }
+        body.light-theme .font-btn.active {
+            background: #3182ce;
+            color: white;
+        }
+
+
+        /* Custom Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #374151; /* gray-700 */
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .toggle-slider {
+            background-color: var(--neon-blue);
+        }
+        body.light-theme input:checked + .toggle-slider {
+             background-color: #3182ce;
+        }
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* Password Modal */
+        #password-modal {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        #password-input {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+        }
+        
+        #password-input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+            outline: none;
+        }
+        
+        .shake {
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+        }
+
+    </style>
+</head>
+<body class="antialiased bg-theme-1 font-theme-1"> <!-- Default theme -->
+
+    <!-- NEW CONSOLIDATED THEME BUTTON -->
+    <div class="fixed top-6 right-6 z-50 flex gap-4 text-xl text-gray-400">
+        <!-- Hidden by default, shown by JS after login -->
+        <button id="open-theme-modal-btn" class="hover:text-white transition" title="Change Theme" style="display: none;">
+            <i class="fas fa-palette"></i>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <!-- Hidden by default, shown by JS after login -->
+    <main class="pt-20 pb-20 px-6 max-w-[1400px] mx-auto" id="main-content-wrapper" style="display: none;">
+        
+        <!-- New Header -->
+        <header class="text-center mb-12">
+            <i class="fas fa-gamepad text-6xl text-[var(--neon-blue)] mb-4"></i>
+            <h1 class="text-5xl font-bold text-white mb-2" style="font-family: var(--font-heading);">Nexus Game Hub</h1>
+            <p class="text-lg text-gray-300">Discover, play, and master the ultimate collection of games</p>
+            <div class="flex justify-center items-center gap-4 mt-4 text-sm text-gray-200">
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-archive text-[var(--neon-blue)]"></i>
+                    <span id="total-games">0</span> Games
+                </span>
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-bolt text-[var(--neon-blue)]"></i>
+                    Instant Play
+                </span>
+                <span class="flex items-center gap-2 cursor-pointer hover:text-[var(--neon-blue)]" onclick="randomGame()">
+                    <i class="fas fa-random text-[var(--neon-blue)]"></i>
+                    Surprise Me!
+                </span>
+            </div>
+        </header>
+
+        <!-- New Search/Filter Bar -->
+        <div class="glass-panel rounded-full p-2 flex items-center gap-2 mb-12 max-w-3xl mx-auto shadow-lg">
+            <i class="fas fa-search text-gray-400 text-sm ml-4"></i>
+            <input type="text" id="search-bar" placeholder="Search for your next adventure..." 
+                class="bg-transparent text-white text-sm w-full focus:outline-none px-2 py-1">
+            <div class="w-px h-6 bg-gray-700"></div>
+            <select id="genre-filter" class="bg-transparent text-gray-300 text-sm rounded-full py-1 px-3 outline-none focus:outline-none appearance-none cursor-pointer">
+                <!-- Options will be added by JS -->
+            </select>
+        </div>
+
+        <!-- NEW Featured Games Section -->
+        <section id="featured-section">
+            <h2 class="section-title text-white" style="font-family: var(--font-heading);">Featured Games</h2>
+            <div id="featured-grid" class="featured-container glass-panel rounded-2xl">
+                <!-- Featured cards injected by JS -->
+            </div>
+        </section>
+
+        <!-- All Games Section -->
+        <section id="all-games-section">
+            <h2 class="section-title text-white" style="font-family: var(--font-heading);">All Games</h2>
+            <div id="game-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- All game cards injected by JS -->
+            </div>
+        </section>
+
+        <!-- No Results (No changes here) -->
+        <div id="no-results" class="hidden text-center py-20">
+            <i class="fas fa-ghost text-6xl text-gray-600 mb-4"></i>
+            <h3 class="text-xl text-gray-400" style="font-family: var(--font-heading);">No games found...</h3>
+        </div>
+    </main>
+
+    <!-- Game Modal (Ratings removed) -->
+    <div id="game-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="modal-backdrop"></div>
+        
+        <div class="glass-panel w-full max-w-5xl h-[90vh] rounded-2xl relative flex flex-col overflow-hidden shadow-2xl border border-[var(--neon-blue)]/30 transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
+            
+            <!-- Modal Header -->
+            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/20">
+                <div class="flex items-center gap-4">
+                    <h2 id="modal-title" class="text-xl md:text-2xl font-bold text-white" style="font-family: var(--font-heading);">Game Title</h2>
+                    <!-- Rating Span Removed -->
+                </div>
+                <div class="flex gap-3">
+                    <button class="text-gray-400 hover:text-white transition" title="Fullscreen" onclick="toggleFullscreen()"><i class="fas fa-expand"></i></button>
+                    <button class="text-gray-400 hover:text-[var(--neon-pink)] transition" onclick="closeModal()"><i class="fas fa-times text-xl"></i></button>
+                </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
+                <!-- Game Container -->
+                <div class="flex-1 bg-black relative flex items-center justify-center" id="iframe-container">
+                    <!-- Placeholder replaced by loadGame() -->
+                </div>
+
+                <!-- Sidebar Info -->
+                <div class="w-full md:w-80 border-l border-white/10 bg-black/20 p-6 overflow-y-auto flex flex-col gap-6">
+                    <div>
+                        <h4 class="text-[var(--neon-blue)] text-sm font-bold mb-2 uppercase tracking-wider" style="font-family: var(--font-heading);">Description</h4>
+                        <p id="modal-desc" class="text-sm text-gray-300 leading-relaxed">
+                            Experience high-octane gameplay in this thrilling adventure. Master the mechanics and beat the high score.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-[var(--neon-blue)] text-sm font-bold mb-2 uppercase tracking-wider" style="font-family: var(--font-heading);">Controls</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-gray-400">
+                            <div class="glass-panel p-2 rounded text-center"><i class="fas fa-arrows-alt mb-1 block"></i>WASD / Arrows</div>
+                            <div class="glass-panel p-2 rounded text-center"><i class="fas fa-mouse mb-1 block"></i>Aim / Click</div>
+                            <div class="glass-panel p-2 rounded text-center"><span class="block text-lg font-bold">SPC</span>Jump</div>
+                            <div class="glass-panel p-2 rounded text-center"><span class="block text-lg font-bold">E</span>Interact</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-auto">
+                         <div class="glass-panel p-4 rounded-xl bg-gradient-to-br from-[var(--neon-purple)]/20 to-transparent">
+                            <h4 class="font-bold mb-1" style="font-family: var(--font-heading);">Pro Tip</h4>
+                            <p class="text-xs text-gray-300 italic">"Focus on combos to multiply your score quickly!"</p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW THEME MODAL -->
+    <div id="theme-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="theme-modal-backdrop"></div>
+        
+        <div class="glass-panel w-full max-w-2xl rounded-2xl relative flex flex-col overflow-hidden shadow-2xl border border-[var(--neon-blue)]/30 transform transition-all duration-300 scale-95 opacity-0" id="theme-modal-content">
+            
+            <!-- Modal Header -->
+            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/20">
+                <h2 class="text-xl md:text-2xl font-bold text-white" style="font-family: var(--font-heading);">Customize Theme</h2>
+                <button class="text-gray-400 hover:text-[var(--neon-pink)] transition" id="close-theme-modal-btn"><i class="fas fa-times text-xl"></i></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                <!-- Light/Dark Toggle -->
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-3 uppercase tracking-wider" style="font-family: var(--font-heading);">Mode</h3>
+                    <div class="glass-panel rounded-lg p-4 flex justify-between items-center">
+                        <span class="text-gray-200">
+                            <i class="fas fa-moon mr-2"></i> Dark Mode
+                        </span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="light-dark-toggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="text-gray-200">
+                            <i class="fas fa-sun mr-2"></i> Light Mode
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Font Selection -->
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-3 uppercase tracking-wider" style="font-family: var(--font-heading);">Fonts</h3>
+                    <div class="flex flex-col sm:flex-row gap-4" id="font-btn-container">
+                        <button class="font-btn flex-1" data-font-theme="font-theme-1">
+                            <span class="text-lg" style="font-family: 'Rajdhani', sans-serif;">Rajdhani</span> / 
+                            <span class="text-sm" style="font-family: 'Poppins', sans-serif;">Poppins</span>
+                        </button>
+                        <button class="font-btn flex-1" data-font-theme="font-theme-2">
+                            <span class="text-lg" style="font-family: 'Oswald', sans-serif;">Oswald</span> / 
+                            <span class="text-sm" style="font-family: 'Roboto', sans-serif;">Roboto</span>
+                        </button>
+                        <button class="font-btn flex-1" data-font-theme="font-theme-3">
+                            <span class="text-lg" style="font-family: 'Bebas Neue', cursive;">Bebas Neue</span> / 
+                            <span class="text-sm" style="font-family: 'Montserrat', sans-serif;">Montserrat</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Background Gradients -->
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4 uppercase tracking-wider" style="font-family: var(--font-heading);">Background Gradients</h3>
+                    <div class="grid grid-cols-4 sm:grid-cols-6 gap-4" id="background-swatch-container">
+                        <!-- Swatches injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW PASSWORD MODAL -->
+    <div id="password-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-4">
+        <div classs="absolute inset-0"></div> <!-- Fullscreen BG -->
+        <div class="glass-panel w-full max-w-sm rounded-2xl p-8 text-center shadow-2xl border border-[var(--neon-blue)]/30">
+            <i class="fas fa-gamepad text-6xl text-[var(--neon-blue)] mb-4"></i>
+            <h2 class="text-3xl font-bold text-white mb-2" style="font-family: 'Rajdhani', sans-serif;">Nexus Game Hub</h2>
+            <p class="text-gray-300 mb-6">Please enter the password to continue</p>
+            
+            <input type="password" id="password-input" class="w-full text-center text-white p-3 rounded-lg text-lg tracking-widest" placeholder="••••••••">
+            
+            <p id="password-error" class="text-[var(--neon-pink)] h-6 mt-2 text-sm text-center"></p>
+            
+            <button id="password-btn" class="w-full mt-2 p-3 bg-[var(--neon-blue)] text-black font-bold text-lg rounded-lg hover:bg-white hover:scale-105 transition shadow-[0_0_20px_rgba(0,243,255,0.4)]">
+                ENTER
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Data ---
+        const SUPER_PASSWORD = "nexus67"; // Your new password
+        
+        const rawLinks = [
+            "https://www.crazygames.com/embed/heroes-assemble",
+            "https://www.crazygames.com/embed/poxel-io",
+            /* "https://www.cargames.com/embed/plants-vs-zombies", */ /* <-- Removed game */
+            "https://www.crazygames.com/embed/bitcoiner",
+            "https://www.crazygames.com/embed/asmr-girl-livestream-mukbang",
+            "https://www.crazygames.com/embed/basketball-orbit",
+            "httpsS://www.crazygames.com/embed/corn-tycoon",
+            "https://www.crazygames.com/embed/papas-wingeria",
+            "https://www.crazygames.com/embed/associations-word-connect",
+            "https://www.crazygames.com/embed/fish-orbit",
+            "https://www.crazygames.com/embed/drift-boss",
+            "https://www.crazygames.com/embed/mancala-classic",
+            "https://www.crazygames.com/embed/money-factory",
+            "https://www.crazygames.com/embed/pop-jewels",
+            "https://www.crazygames.com/embed/the-farmer",
+            "https://www.crazygames.com/embed/peckin-pixels",
+            "https://www.crazygames.com/embed/find-the-pets",
+            "https://www.crazygames.com/embed/runic-curse",
+            "https://www.crazygames.com/embed/jacksmith",
+            "https://www.crazygames.com/embed/magic-kingdom-hex-match",
+            "https://www.crazygames.com/embed/pocketro",
+            "https://www.crazygames.com/embed/mini-mine",
+            "https://www.crazygames.com/embed/big-tower-tiny-square-2",
+            "https://www.crazygames.com/embed/aim-master",
+            "https://www.crazygames.com/embed/diner-in-the-storm",
+            "https://www.crazygames.com/embed/foono-online-multiplayer",
+            "https://www.crazygames.com/embed/obby-mini-games",
+            "https://www.crazygames.com/embed/erth-poker-with-friends",
+            "https://www.crazygames.com/embed/art-of-alchemy-merge-elements",
+            "https://www.crazygames.com/embed/idle-ants",
+            "https://www.crazygames.com/embed/adventure-jumper",
+            "https://www.crazygames.com/embed/bounce-blocku-golf",
+            "https://www.crazygames.com/embed/100-meters-race",
+            "https://www.crazygames.com/embed/blade-merge",
+            "https://www.crazygames.com/embed/truck-simulator-real",
+            "https://www.crazygames.com/embed/cave-gems",
+            "https://www.crazygames.com/embed/my-chicken-farm",
+            "https://www.crazygames.com/embed/chibi-doll-dress-up-coloring",
+            "https://www.crazygames.com/embed/neon-planet-idle-clicker",
+            "https://www.crazygames.com/embed/memory-cards",
+            /* "https://www.crazygames.com/embed/bloxd-io", */ /* <-- Removed duplicate */
+            "https://www.crazygames.com/embed/ragdoll-archers",
+            "https://www.crazygames.com/embed/piles-of-mahjong",
+            "https://www.crazygames.com/embed/skydom",
+            "https://www.crazygames.com/embed/word-wipe",
+            "https://www.crazygames.com/embed/bad-cat-prankster",
+            "https://www.crazygames.com/embed/tower-swap",
+            "https://www.crazygames.com/embed/mahjongg-solitaire",
+            "https://www.crazygames.com/embed/arkadiums-bubble-shooter",
+            "https://www.crazygames.com/embed/bubble-blast",
+            "https://www.crazygames.com/embed/slice-master",
+            "https://www.crazygames.com/embed/speed-per-click-obby",
+            "https://www.crazygames.com/embed/smash-karts",
+            "https://www.crazygames.com/embed/pixel-warfare",
+            "https://www.crazygames.com/embed/paper-io-2",
+            "https://www.crazygames.com/embed/skydom-reforged",
+            "https://www.crazygames.com/embed/farm-merge-valley",
+            "https://www.crazygames.com/embed/count-masters-stickman-games",
+            "https://www.crazygames.com/embed/stickman-clash",
+            "https://www.crazygames.com/embed/nuts-puzzle-sort-by-color",
+            "https://www.crazygames.com/embed/thief-puzzle",
+            "https://www.crazygames.com/embed/8-ball-billiards-classic",
+            "https://www.crazygames.com/embed/onet-connect-classic",
+            "https://www.crazygames.com/embed/draw-climber",
+            "https://www.crazygames.com/embed/cuberealm-io",
+            "https://www.crazygames.com/embed/obby-gym-simulator-escape",
+            "https://www.crazygames.com/embed/skillwarz",
+            "https://www.crazygames.com/embed/guess-their-answer",
+            "https://www.crazygames.com/embed/man-runner-2048",
+            "https://www.crazygames.com/embed/tap-3d-wood-block-away",
+            "https://www.crazygames.com/embed/space-waves",
+            "https://www.crazygames.com/embed/evowars-io",
+            "https://www.crazygames.com/embed/fortzone-battle-royale",
+            "https://www.crazygames.com/embed/grow-a-garden-growden-io",
+            /* "https://www.crazygames.com/embed/bloxdhop-io" */ /* <-- Removed duplicate */
+        ];
+
+        // New games list from user
+        const newGamesList = [
+            { name: "Slope 2", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/2ac991f03_slope-2.jpg", url: "https://2slope.github.io/", genre: "Arcade", developer: "RoboGames", rating: 4.2, popularity: 150, featured: false },
+            { name: "2048", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/147017c76_1200x600wa.jpg", url: "httpsS://specials.manoramaonline.com/Mobile/2022/2048-game/index.html", genre: "Puzzle", developer: "Gabriele Cirulli", rating: 4.5, popularity: 200, featured: true },
+            { name: "Flappy Bird", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/779dfa841_maxresdefault.jpg", url: "https://flappybird.io/", genre: "Arcade", developer: "Dong Nguyen", rating: 3.5, popularity: 120, featured: false },
+            { name: "Snake", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/5dadeeea8_need-advice-snake-game-in-2d-platformer-v0-6xna5w0be2od1.jpg", url: "https://www.mathsisfun.com/games/snake.html", genre: "Arcade", developer: "Classic Games Inc.", rating: 4.0, popularity: 180, featured: false },
+            { name: "Tetris", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/5fa1512e9_.jpeg", url: "https://tetris.com/play-tetris/", genre: "Puzzle", developer: "Alexey Pajitnov", rating: 4.7, popularity: 250, featured: true },
+            { name: "Pac-Man", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/e530a124f_.jpg", url: "httpsS://freepacman.org/", genre: "Arcade", developer: "Namco", rating: 4.3, popularity: 190, featured: false },
+            { name: "Minesweeper", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/45d8b1d22_minesweeperxp.jpeg", url: "httpsS://minesweeper.online/", genre: "Puzzle", developer: "Microsoft", rating: 4.1, popularity: 110, featured: false },
+            { name: "Crossy Road", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/1a3415e89_crossy-road.jpg", url: "httpsS://pixelpad.io/app/wsjezhiqjue/?emb=1", genre: "Arcade", developer: "Hipster Whale", rating: 4.4, popularity: 160, featured: false },
+            { name: "Basketball Stars", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/7dbad7de0_cover-1583231506155.png", url: "httpsS://basketball-stars.github.io/", genre: "Sports", developer: "Madpuffers", rating: 3.9, popularity: 90, featured: false },
+            { name: "Subway Surfers", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/ce0795484_Subway_Surfers.jpg", url: "httpsS://staticquasar931.github.io/Subway-Surfers/", genre: "Runner", developer: "Kiloo & SYBO Games", rating: 4.6, popularity: 220, featured: true },
+            { name: "Run 3", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/2b10d9af1_Run3_OG-logo.jpg", url: "httpsS://schoolisntfun.github.io/mnt/run3.html", genre: "Platformer", developer: "Kongregate", rating: 4.0, popularity: 130, featured: false },
+            { name: "Among Us", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/20ad47e5d_MV5BODI3ODMyZTgtZDdjYS00ZGRlLTg5YjMtNDY2ZjZlODg2NzYyXkEyXkFqcGc_V1_FMjpg_UX1000_.jpg", url: "https://universal-games-unblocked.vercel.app/projects/among-us/index.html", genre: "Party", developer: "Innersoth", rating: 4.8, popularity: 300, featured: true },
+            { name: "Vex 5", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/b4a0b9809_vex-5-1407904700.png", url: "httpsS://vexgame-unblocked.github.io/", genre: "Platformer", developer: "Agame", rating: 4.1, popularity: 100, featured: false },
+            { name: "Paper.io 2", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/05dbe70b1_unnamed.png", url: "httpsS://paper-io.com/paper-io-2", genre: "Strategy", developer: "Voodoo", rating: 4.2, popularity: 140, featured: false },
+            { name: "Moto X3M", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/21018956a_moto-x3m.jpg", url: "httpsS://moto-x3m.io/", genre: "Racing", developer: "Madpuffers", rating: 4.5, popularity: 170, featured: false },
+            { name: "Wordle", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/417e11ba6_wordle-logo.jpeg", url: "httpsS://artworksforchange.org/games/wordle/", genre: "Puzzle", developer: "Josh Wardle", rating: 4.3, popularity: 95, featured: false },
+            { name: "Solitaire", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/02ce4abb6_960d669195b918e976a2b56099aa5244f58aef1b3fb36e2ef6f19bbcf79db9a6.jpg", url: "https://www.solitr.com/", genre: "Card", developer: "Microsoft", rating: 3.7, popularity: 70, featured: false },
+            { name: "Chess", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/ac0b2d5f0_Chess_pieces_close_up.jpg", url: "httpsS://www.mathsisfun.com/games/chess.html", genre: "Board", developer: "Maths Is Fun", rating: 4.0, popularity: 115, featured: true },
+            { name: "Fireboy & Watergirl", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/a82991fe9_favicon1.png", url: "httpsS://html5.gamedistribution.com/a55c9cc9c21e4fc683c8c6857f3d0c75/?utm_source=fireboy-andwatergirl.io&utm_medium=fireboy-andwatergirl-1-forest-temple&utm_campaign=block-and-redirect", genre: "Adventure", developer: "Oslo Albet", rating: 4.6, popularity: 180, featured: false },
+            { name: "Guess Who?", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/fe3d9ccb0_guess-who-multiplayer_1x1.png", url: "httpsS://www.calculators.org/games/guess-who", genre: "Board", developer: "Calculators.org", rating: 4.1, popularity: 85, featured: false },
+            /* <-- New game added --> */
+            { name: "Bloxd IO", image: null, url: "https://games.crazygames.com/en_US/bloxdhop-io/index.html?v=1.345", genre: "Platformer", rating: 4.3, featured: false }
+        ];
+        
+        // --- NEW THEME DATA ---
+        const backgroundThemes = [
+            { id: 'bg-theme-1', css: '#0d1117' },
+            { id: 'bg-theme-2', css: '#3a0ca3' },
+            { id: 'bg-theme-3', css: '#b71c1c' },
+            { id: 'bg-theme-4', css: '#004d40' },
+            { id: 'bg-theme-5', css: '#1e3a8a' },
+            { id: 'bg-theme-6', css: '#1b1b1b' },
+            { id: 'bg-theme-7', css: '#4a148c' },
+            { id: 'bg-theme-8', css: '#b91d73' },
+            { id: 'bg-theme-9', css: '#3a6186' },
+            { id: 'bg-theme-10', css: '#4e342e' },
+            { id: 'bg-theme-11', css: '#01579b' },
+            { id: 'bg-theme-12', css: '#267871' }
+        ];
+        let currentBgClass = backgroundThemes[0].id;
+        let currentFontClass = 'font-theme-1';
+
+
+        let allGenres = ["all"];
+        // Process Links into Objects
+        const oldGames = rawLinks.map((url, index) => {
+            const slug = url.split('/').pop();
+            const title = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            
+            // Infer genre from keywords
+            let genre = 'casual';
+            if (slug.includes('io')) genre = 'io';
+            else if (slug.includes('puzzle') || slug.includes('mahjong') || slug.includes('connect') || slug.includes('word')) genre = 'puzzle';
+            else if (slug.includes('shooter') || slug.includes('war') || slug.includes('battle') || slug.includes('clash') || slug.includes('archers') || slug.includes('skillwarz')) genre = 'action';
+            else if (slug.includes('drift') || slug.includes('race') || slug.includes('simulator')) genre = 'racing';
+            else if (slug.includes('obby') || slug.includes('jumper') || slug.includes('climber') || slug.includes('tower-square')) genre = 'platformer';
+            
+            if (!allGenres.includes(genre)) allGenres.push(genre);
+            
+            // Random rating between 4.0 and 5.0
+            const rating = (Math.random() * (5.0 - 4.0) + 4.0).toFixed(1);
+            
+            // Unique hue for card art
+            const hue = (index * 137.5) % 360; 
+
+            return { id: index, title, url, genre, rating, slug, hue, image: null, featured: false }; /* <-- Added featured: false */
+        });
+
+        const newGames = newGamesList.map((game, index) => {
+            const genre = game.genre.toLowerCase();
+            if (!allGenres.includes(genre)) allGenres.push(genre);
+            
+            return {
+                id: index + oldGames.length,
+                title: game.name,
+                url: game.url,
+                genre: genre,
+                rating: game.rating,
+                slug: game.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-'),
+                hue: null,
+                image: game.image,
+                featured: game.featured || false /* <-- Use featured flag */
+            }
+        });
+
+        const games = [...oldGames, ...newGames];
+
+        // --- Music Player Removed ---
+
+        // --- DOM Elements ---
+        const mainContentWrapper = document.getElementById('main-content-wrapper');
+        const grid = document.getElementById('game-grid');
+        const searchInput = document.getElementById('search-bar');
+        const genreFilter = document.getElementById('genre-filter'); // New filter select
+        const totalGamesEl = document.getElementById('total-games');
+        
+        // --- NEW THEME MODAL DOM ---
+        const openThemeModalBtn = document.getElementById('open-theme-modal-btn');
+        const themeModal = document.getElementById('theme-modal');
+        const themeModalContent = document.getElementById('theme-modal-content');
+        const themeModalBackdrop = document.getElementById('theme-modal-backdrop');
+        const closeThemeModalBtn = document.getElementById('close-theme-modal-btn');
+        const lightDarkToggle = document.getElementById('light-dark-toggle');
+        const swatchContainer = document.getElementById('background-swatch-container');
+        const fontBtnContainer = document.getElementById('font-btn-container');
+        
+        // --- NEW PASSWORD MODAL DOM ---
+        const passwordModal = document.getElementById('password-modal');
+        const passwordInput = document.getElementById('password-input');
+        const passwordBtn = document.getElementById('password-btn');
+        const passwordError = document.getElementById('password-error');
+        
+        // Game Modal DOM
+        const modal = document.getElementById('game-modal');
+        const modalContent = document.getElementById('modal-content');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const iframeContainer = document.getElementById('iframe-container');
+        let activeGameUrl = "";
+
+        // --- Initialization ---
+        function init() {
+            // Check password first
+            if (sessionStorage.getItem('nexus_auth') === 'true') {
+                showApp();
+            } else {
+                // Add password listeners
+                passwordBtn.addEventListener('click', checkPassword);
+                passwordInput.addEventListener('keyup', (e) => {
+                    if (e.key === 'Enter') checkPassword();
+                });
+            }
+
+            renderFeaturedGames(); // Render featured games
+            renderAllGames(games); // Render all games
+            totalGamesEl.innerText = games.length;
+            populateThemeModal(); // Create theme swatches
+            
+            // Populate Genre Filter
+            // Manually add "All Games" as the first option
+            const allGamesOption = document.createElement('option');
+            allGamesOption.value = "all";
+            allGamesOption.innerText = "All Games";
+            genreFilter.appendChild(allGamesOption);
+
+            // Filter out 'all' from the array, then sort and add the rest
+            allGenres.filter(g => g !== 'all').sort().forEach(genre => {
+                const option = document.createElement('option');
+                option.value = genre;
+                option.innerText = genre.charAt(0).toUpperCase() + genre.slice(1);
+                genreFilter.appendChild(option);
+            });
+            
+            // --- THEME LISTENERS ---
+            openThemeModalBtn.addEventListener('click', openThemeModal);
+            closeThemeModalBtn.addEventListener('click', closeThemeModal);
+            themeModalBackdrop.addEventListener('click', closeThemeModal);
+            lightDarkToggle.addEventListener('change', toggleTheme);
+            fontBtnContainer.addEventListener('click', (e) => {
+                const btn = e.target.closest('.font-btn');
+                if (btn) {
+                    applyFont(btn.dataset.fontTheme);
+                }
+            });
+            
+            // Check for saved theme
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                lightDarkToggle.checked = true;
+            }
+
+            // Check for saved background
+            currentBgClass = localStorage.getItem('bgTheme') || 'bg-theme-1';
+            document.body.classList.remove('bg-theme-1'); // remove default
+            document.body.classList.add(currentBgClass);
+            updateActiveSwatch();
+            
+            // Check for saved font
+            currentFontClass = localStorage.getItem('fontTheme') || 'font-theme-1';
+            document.body.classList.remove('font-theme-1'); // remove default
+            document.body.classList.add(currentFontClass);
+            updateActiveFontButton();
+
+
+            // Search & Filter Listeners
+            searchInput.addEventListener('input', () => filterGames());
+            genreFilter.addEventListener('change', () => filterGames());
+
+
+            // Modal Close Listeners
+            document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+        }
+        
+        // --- Password Logic ---
+        function checkPassword() {
+            if (passwordInput.value === SUPER_PASSWORD) {
+                sessionStorage.setItem('nexus_auth', 'true');
+                showApp();
+            } else {
+                passwordError.innerText = "Incorrect Password";
+                passwordInput.classList.add('shake');
+                setTimeout(() => {
+                    passwordInput.classList.remove('shake');
+                    passwordError.innerText = "";
+                }, 1000);
+            }
+        }
+        
+        function showApp() {
+            passwordModal.style.display = 'none';
+            mainContentWrapper.style.display = 'block';
+            openThemeModalBtn.style.display = 'block';
+        }
+
+        // --- Rendering ---
+        function renderFeaturedGames() {
+            const featuredGrid = document.getElementById('featured-grid');
+            const featuredGames = games.filter(g => g.featured);
+
+            featuredGrid.innerHTML = '';
+            if(featuredGames.length === 0) {
+                document.getElementById('featured-section').classList.add('hidden');
+                return;
+            }
+
+            featuredGames.forEach(game => {
+                const card = document.createElement('div');
+                // Added 'featured-card' class
+                card.className = 'glass-card featured-card rounded-2xl p-4 cursor-pointer group flex flex-col';
+                card.onclick = () => openModal(game);
+
+                const artStyle = game.image
+                    ? `background-image: url('${game.image}'); background-size: cover; background-position: center;`
+                    : `background: linear-gradient(${game.hue}deg, hsl(${game.hue}, 70%, 20%), hsl(${game.hue + 40}, 80%, 10%));`;
+                
+                let icon = 'fa-gamepad';
+                if (game.genre === 'io') icon = 'fa-globe';
+                if (game.genre === 'puzzle') icon = 'fa-puzzle-piece';
+                if (game.genre === 'action') icon = 'fa-fighter-jet';
+                if (game.genre === 'racing') icon = 'fa-car';
+                if (game.genre === 'platformer') icon = 'fa-person-running';
+                if (game.genre === 'arcade') icon = 'fa-ghost';
+
+                const artIcon = game.image 
+                    ? '' 
+                    : `<i class="fas ${icon} text-5xl text-white/20 group-hover:scale-125 transition duration-500"></i>`;
+
+                card.innerHTML = `
+                    <div class="h-40 rounded-xl mb-4 relative overflow-hidden flex items-center justify-center shadow-inner border border-white/5" style="${artStyle}">
+                        ${artIcon}
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                             <span class="bg-[var(--neon-blue)] text-black px-4 py-1 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(0,243,255,0.6)] transform translate-y-4 group-hover:translate-y-0 transition">PLAY</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h3 class="font-bold text-lg leading-tight mb-1 group-hover:text-[var(--neon-blue)] transition text-ellipsis overflow-hidden line-clamp-1" style="font-family: var(--font-heading);">${game.title}</h3>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest mb-2">${game.genre}</p>
+                    </div>
+                `;
+                featuredGrid.appendChild(card);
+            });
+        }
+        
+        // Renamed from renderGames
+        function renderAllGames(list) {
+            grid.innerHTML = '';
+            if (list.length === 0) {
+                document.getElementById('no-results').classList.remove('hidden');
+                return;
+            }
+            document.getElementById('no-results').classList.add('hidden');
+
+            list.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'glass-card rounded-2xl p-4 cursor-pointer group flex flex-col h-[280px]';
+                card.onclick = () => openModal(game);
+
+                // Procedural Art Background or Image
+                const artStyle = game.image
+                    ? `background-image: url('${game.image}'); background-size: cover; background-position: center;`
+                    : `background: linear-gradient(${game.hue}deg, hsl(${game.hue}, 70%, 20%), hsl(${game.hue + 40}, 80%, 10%));`;
+                
+                // Icon based on genre
+                let icon = 'fa-gamepad';
+                if (game.genre === 'io') icon = 'fa-globe';
+                if (game.genre === 'puzzle') icon = 'fa-puzzle-piece';
+                if (game.genre === 'action') icon = 'fa-fighter-jet';
+                if (game.genre === 'racing') icon = 'fa-car';
+                if (game.genre === 'platformer') icon = 'fa-person-running';
+                if (game.genre === 'arcade') icon = 'fa-ghost';
+
+                // If there's an image, don't show the icon
+                const artIcon = game.image 
+                    ? '' 
+                    : `<i class="fas ${icon} text-5xl text-white/20 group-hover:scale-125 transition duration-500"></i>`;
+
+
+                card.innerHTML = `
+                    <div class="h-40 rounded-xl mb-4 relative overflow-hidden flex items-center justify-center shadow-inner border border-white/5" style="${artStyle}">
+                        ${artIcon}
+                        <!-- Rating Div Removed -->
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                             <span class="bg-[var(--neon-blue)] text-black px-4 py-1 rounded-full font-bold text-sm shadow-[0_0_15px_rgba(0,243,255,0.6)] transform translate-y-4 group-hover:translate-y-0 transition">PLAY</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <h3 class="font-bold text-lg leading-tight mb-1 group-hover:text-[var(--neon-blue)] transition text-ellipsis overflow-hidden line-clamp-1" style="font-family: var(--font-heading);">${game.title}</h3>
+                        <p class="text-xs text-gray-400 uppercase tracking-widest mb-2">${game.genre}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // --- Filtering ---
+        function filterGames() {
+            const query = searchInput.value.toLowerCase();
+            const category = genreFilter.value;
+            
+            const filtered = games.filter(g => {
+                const matchesSearch = g.title.toLowerCase().includes(query);
+                const matchesCat = category === 'all' || g.genre === category;
+                return matchesSearch && matchesCat;
+            });
+            renderAllGames(filtered); // Call the renamed function
+        }
+
+        function randomGame() {
+            const r = games[Math.floor(Math.random() * games.length)];
+            openModal(r);
+        }
+
+        // --- Modal Logic ---
+        function openModal(game) {
+            activeGameUrl = game.url;
+            modalTitle.innerText = game.title;
+            // modalRating.innerText = game.rating; // Removed
+            
+            // Placeholder art: Use image if available, otherwise fall back to pulse
+            const placeholderArt = game.image
+                ? `<img src="${game.image}" class="w-24 h-24 object-cover rounded-lg mx-auto mb-4 shadow-lg" onerror="this.parentElement.innerHTML = '<i class=\\'fas fa-play text-3xl text-[var(--neon-blue)]\\'></i>'">`
+                : `<div class="w-20 h-20 rounded-full bg-[var(--neon-blue)]/20 flex items-center justify-center mx-auto mb-4 animate-pulse">
+                       <i class="fas fa-play text-3xl text-[var(--neon-blue)]"></i>
+                   </div>`;
+
+            // Reset iframe area to show the placeholder
+            iframeContainer.innerHTML = `
+                <div id="game-placeholder" class="text-center p-4">
+                    ${placeholderArt}
+                    <p class="text-sm text-gray-400 mb-6">Ready to launch ${game.title}?</p>
+                    <button onclick="loadGame()" class="px-8 py-3 bg-[var(--neon-blue)] text-black font-bold rounded-full hover:bg-white hover:scale-105 transition shadow-[0_0_20px_rgba(0,243,255,0.4)]">
+                        PLAY NOW
+                    </button>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex'); // Make sure it's a flex container
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function loadGame() {
+            // Get all the modal parts
+            const modal = document.getElementById('game-modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalHeader = modalContent.querySelector('.p-4.border-b'); // Get header
+            const modalBody = modalContent.querySelector('.flex-1.flex'); // Get body
+            const sidebar = modalBody.querySelector('.w-full.md\\:w-80'); // Get sidebar
+            const gameArea = document.getElementById('iframe-container');
+
+            // 1. Hide header and sidebar
+            if (modalHeader) modalHeader.classList.add('hidden');
+            if (sidebar) sidebar.classList.add('hidden');
+
+            // 2. Expand modal content to fill screen
+            modal.classList.add('p-0'); // Remove padding from outer modal container
+            modalContent.classList.add('w-screen', 'h-screen', 'max-w-full', 'max-h-full', 'rounded-none', 'border-none');
+            modalContent.classList.remove('max-w-5xl', 'h-[90vh]', 'rounded-2xl', 'border');
+            
+            // 3. Ensure modal body and game area fill the new space
+            modalBody.classList.remove('md:flex-row');
+            gameArea.classList.add('h-full'); // Ensure game area fills the height
+
+            // 4. Load the game iframe, replacing the placeholder
+            gameArea.innerHTML = `
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 text-white/80 px-3 py-1.5 rounded-full text-xs z-20 animate-pulse font-sans">
+                    Press ESC to close
+                </div>
+                <iframe id="active-game-frame" src="${activeGameUrl}" 
+                    style="width: 100%; height: 100%; border: none; position: relative; z-index: 1;" 
+                    allowfullscreen="true" 
+                    scrolling="no"
+                    allow="autoplay; encrypted-media">
+                </iframe>
+            `;
+
+            // 5. Try to request actual fullscreen on the iframe itself for good measure
+            // This might fail, but the CSS fallback will still work
+            const iframe = document.getElementById('active-game-frame');
+            if (iframe) {
+                setTimeout(() => {
+                    if (iframe.requestFullscreen) {
+                        iframe.requestFullscreen().catch(err => console.log("Fullscreen API failed, using CSS fallback.", err.message));
+                    } else if (iframe.webkitRequestFullscreen) { /* Safari */
+                        iframe.webkitRequestFullscreen().catch(err => console.log("Fullscreen API failed, using CSS fallback.", err.message));
+                    }
+                }, 150);
+            }
+        }
+
+        function closeModal() {
+            // Get all the modal parts
+            const modal = document.getElementById('game-modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalHeader = modalContent.querySelector('.p-4.border-b'); // Get header
+            const modalBody = modalContent.querySelector('.flex-1.flex'); // Get body
+            const sidebar = modalBody.querySelector('.w-full.md\\:w-80'); // Get sidebar
+
+            // 1. Exit fullscreen if active
+            if (document.fullscreenElement || document.webkitFullscreenElement) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { /* Safari */
+                    document.webkitExitFullscreen();
+                }
+            }
+            
+            // 2. Animate modal out
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+
+            // 3. After animation, hide modal and RESET styles
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex', 'p-0'); // Hide and remove no-padding
+
+                // Reset modal content styles
+                modalContent.classList.remove('w-screen', 'h-screen', 'max-w-full', 'max-h-full', 'rounded-none', 'border-none');
+                modalContent.classList.add('max-w-5xl', 'h-[90vh]', 'rounded-2xl', 'border');
+                
+                // Reset body
+                modalBody.classList.add('md:flex-row');
+
+                // Un-hide header and sidebar
+                if (modalHeader) modalHeader.classList.remove('hidden');
+                if (sidebar) sidebar.classList.remove('hidden');
+
+                // Stop game audio/logic
+                iframeContainer.innerHTML = ''; 
+            }, 300);
+        }
+
+        function toggleFullscreen() {
+            // This function now toggles fullscreen on the game *container*
+            const elem = document.getElementById('iframe-container');
+            if (!elem) return;
+            
+            // Check if we're already fullscreen
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                // Request fullscreen
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) { /* Safari */
+                    elem.webkitRequestFullscreen();
+                }
+            } else {
+                // Exit fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { /* Safari */
+                    document.webkitExitFullscreen();
+                }
+            }
+        }
+        
+        // --- Theme Toggle Logic ---
+        function toggleTheme() {
+            const isLight = lightDarkToggle.checked;
+            if (isLight) {
+                document.body.classList.add('light-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.classList.remove('light-theme');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function populateThemeModal() {
+            // Populate Background Swatches
+            backgroundThemes.forEach(theme => {
+                const swatch = document.createElement('button');
+                swatch.className = 'theme-swatch';
+                swatch.style.backgroundColor = theme.css; // Use backgroundColor
+                swatch.dataset.themeId = theme.id;
+                
+                swatch.onclick = () => {
+                    applyBackground(theme.id);
+                };
+                
+                swatchContainer.appendChild(swatch);
+            });
+        }
+        
+        function applyFont(fontTheme) {
+            document.body.classList.remove(currentFontClass);
+            currentFontClass = fontTheme;
+            document.body.classList.add(currentFontClass);
+            localStorage.setItem('fontTheme', currentFontClass);
+            updateActiveFontButton();
+        }
+        
+        function updateActiveFontButton() {
+            document.querySelectorAll('#font-btn-container .font-btn').forEach(btn => {
+                if (btn.dataset.fontTheme === currentFontClass) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function applyBackground(themeId) {
+            // Remove old theme
+            document.body.classList.remove(currentBgClass);
+            
+            // Add new theme
+            currentBgClass = themeId;
+            document.body.classList.add(currentBgClass);
+            
+            // Save it
+            localStorage.setItem('bgTheme', currentBgClass);
+            
+            // Update active state in modal
+            updateActiveSwatch();
+        }
+
+        function updateActiveSwatch() {
+            // Update active swatch
+            document.querySelectorAll('.theme-swatch').forEach(sw => {
+                if (sw.dataset.themeId === currentBgClass) {
+                    sw.classList.add('active');
+                } else {
+                    sw.classList.remove('active');
+                }
+            });
+        }
+
+        function openThemeModal() {
+            themeModal.classList.remove('hidden');
+            themeModal.classList.add('flex');
+            setTimeout(() => {
+                themeModalContent.classList.remove('scale-95', 'opacity-0');
+                themeModalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            updateActiveSwatch(); // Ensure correct swatch is active when opening
+            updateActiveFontButton(); // Ensure correct font btn is active
+        }
+
+        function closeThemeModal() {
+            themeModalContent.classList.remove('scale-100', 'opacity-100');
+            themeModalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                themeModal.classList.add('hidden');
+                themeModal.classList.remove('flex');
+            }, 300);
+        }
+
+        // --- Music Removed ---
+
+        // Start
+        init();
+
+    </script>
+</body>
+</html>
