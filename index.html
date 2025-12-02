@@ -45,8 +45,6 @@
             overflow-x: hidden;
             
             /* Default properties - background-color set by bg-theme-X class */
-            /* background-size: 400% 400%; */ /* Removed animation */
-            /* animation: galaxy-animate 25s ease infinite; */ /* Removed animation */
             transition: background-color 0.5s ease, color 0.5s ease;
         }
 
@@ -63,9 +61,6 @@
         body.bg-theme-10 { background-color: #4e342e; }
         body.bg-theme-11 { background-color: #01579b; }
         body.bg-theme-12 { background-color: #267871; }
-
-
-        /* @keyframes galaxy-animate { ... } */ /* Removed animation */
 
         /* Light Theme */
         body.light-theme {
@@ -492,7 +487,7 @@
 
                 <!-- Background Gradients -->
                 <div>
-                    <h3 class="text-lg font-bold text-white mb-4 uppercase tracking-wider" style="font-family: var(--font-heading);">Background Gradients</h3>
+                    <h3 class="text-lg font-bold text-white mb-4 uppercase tracking-wider" style="font-family: var(--font-heading);">Background Colors</h3>
                     <div class="grid grid-cols-4 sm:grid-cols-6 gap-4" id="background-swatch-container">
                         <!-- Swatches injected by JS -->
                     </div>
@@ -503,8 +498,8 @@
 
     <!-- NEW PASSWORD MODAL -->
     <div id="password-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-4">
-        <div classs="absolute inset-0"></div> <!-- Fullscreen BG -->
-        <div class="glass-panel w-full max-w-sm rounded-2xl p-8 text-center shadow-2xl border border-[var(--neon-blue)]/30">
+        <div class="absolute inset-0"></div> <!-- Fullscreen BG -->
+        <div class="glass-panel w-full max-w-sm rounded-2xl p-8 text-center shadow-2xl border border-[var(--neon-blue)]/30 relative z-10">
             <i class="fas fa-gamepad text-6xl text-[var(--neon-blue)] mb-4"></i>
             <h2 class="text-3xl font-bold text-white mb-2" style="font-family: 'Rajdhani', sans-serif;">Nexus Game Hub</h2>
             <p class="text-gray-300 mb-6">Please enter the password to continue</p>
@@ -522,110 +517,98 @@
 
     <script>
         // --- Data ---
-        const SUPER_PASSWORD = "nexus67"; // Your new password
+        const SUPER_PASSWORD = "nexusgames67"; // Your password for this file
         
-        const rawLinks = [
-            "https://www.crazygames.com/embed/heroes-assemble",
-            "https://www.crazygames.com/embed/poxel-io",
-            /* "https://www.cargames.com/embed/plants-vs-zombies", */ /* <-- Removed game */
-            "https://www.crazygames.com/embed/bitcoiner",
-            "https://www.crazygames.com/embed/asmr-girl-livestream-mukbang",
-            "https://www.crazygames.com/embed/basketball-orbit",
-            "httpsS://www.crazygames.com/embed/corn-tycoon",
-            "https://www.crazygames.com/embed/papas-wingeria",
-            "https://www.crazygames.com/embed/associations-word-connect",
-            "https://www.crazygames.com/embed/fish-orbit",
-            "https://www.crazygames.com/embed/drift-boss",
-            "https://www.crazygames.com/embed/mancala-classic",
-            "https://www.crazygames.com/embed/money-factory",
-            "https://www.crazygames.com/embed/pop-jewels",
-            "https://www.crazygames.com/embed/the-farmer",
-            "https://www.crazygames.com/embed/peckin-pixels",
-            "https://www.crazygames.com/embed/find-the-pets",
-            "https://www.crazygames.com/embed/runic-curse",
-            "https://www.crazygames.com/embed/jacksmith",
-            "https://www.crazygames.com/embed/magic-kingdom-hex-match",
-            "https://www.crazygames.com/embed/pocketro",
-            "https://www.crazygames.com/embed/mini-mine",
-            "https://www.crazygames.com/embed/big-tower-tiny-square-2",
-            "https://www.crazygames.com/embed/aim-master",
-            "https://www.crazygames.com/embed/diner-in-the-storm",
-            "https://www.crazygames.com/embed/foono-online-multiplayer",
-            "https://www.crazygames.com/embed/obby-mini-games",
-            "https://www.crazygames.com/embed/erth-poker-with-friends",
-            "https://www.crazygames.com/embed/art-of-alchemy-merge-elements",
-            "https://www.crazygames.com/embed/idle-ants",
-            "https://www.crazygames.com/embed/adventure-jumper",
-            "https://www.crazygames.com/embed/bounce-blocku-golf",
-            "https://www.crazygames.com/embed/100-meters-race",
-            "https://www.crazygames.com/embed/blade-merge",
-            "https://www.crazygames.com/embed/truck-simulator-real",
-            "https://www.crazygames.com/embed/cave-gems",
-            "https://www.crazygames.com/embed/my-chicken-farm",
-            "https://www.crazygames.com/embed/chibi-doll-dress-up-coloring",
-            "https://www.crazygames.com/embed/neon-planet-idle-clicker",
-            "https://www.crazygames.com/embed/memory-cards",
-            /* "https://www.crazygames.com/embed/bloxd-io", */ /* <-- Removed duplicate */
-            "https://www.crazygames.com/embed/ragdoll-archers",
-            "https://www.crazygames.com/embed/piles-of-mahjong",
-            "https://www.crazygames.com/embed/skydom",
-            "https://www.crazygames.com/embed/word-wipe",
-            "https://www.crazygames.com/embed/bad-cat-prankster",
-            "https://www.crazygames.com/embed/tower-swap",
-            "https://www.crazygames.com/embed/mahjongg-solitaire",
-            "https://www.crazygames.com/embed/arkadiums-bubble-shooter",
-            "https://www.crazygames.com/embed/bubble-blast",
-            "https://www.crazygames.com/embed/slice-master",
-            "https://www.crazygames.com/embed/speed-per-click-obby",
-            "https://www.crazygames.com/embed/smash-karts",
-            "https://www.crazygames.com/embed/pixel-warfare",
-            "https://www.crazygames.com/embed/paper-io-2",
-            "https://www.crazygames.com/embed/skydom-reforged",
-            "https://www.crazygames.com/embed/farm-merge-valley",
-            "https://www.crazygames.com/embed/count-masters-stickman-games",
-            "https://www.crazygames.com/embed/stickman-clash",
-            "https://www.crazygames.com/embed/nuts-puzzle-sort-by-color",
-            "https://www.crazygames.com/embed/thief-puzzle",
-            "https://www.crazygames.com/embed/8-ball-billiards-classic",
-            "https://www.crazygames.com/embed/onet-connect-classic",
-            "https://www.crazygames.com/embed/draw-climber",
-            "https://www.crazygames.com/embed/cuberealm-io",
-            "https://www.crazygames.com/embed/obby-gym-simulator-escape",
-            "https://www.crazygames.com/embed/skillwarz",
-            "https://www.crazygames.com/embed/guess-their-answer",
-            "https://www.crazygames.com/embed/man-runner-2048",
-            "https://www.crazygames.com/embed/tap-3d-wood-block-away",
-            "https://www.crazygames.com/embed/space-waves",
-            "https://www.crazygames.com/embed/evowars-io",
-            "https://www.crazygames.com/embed/fortzone-battle-royale",
-            "https://www.crazygames.com/embed/grow-a-garden-growden-io",
-            /* "https://www.crazygames.com/embed/bloxdhop-io" */ /* <-- Removed duplicate */
-        ];
-
-        // New games list from user
-        const newGamesList = [
-            { name: "Slope 2", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/2ac991f03_slope-2.jpg", url: "https://2slope.github.io/", genre: "Arcade", developer: "RoboGames", rating: 4.2, popularity: 150, featured: false },
-            { name: "2048", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/147017c76_1200x600wa.jpg", url: "httpsS://specials.manoramaonline.com/Mobile/2022/2048-game/index.html", genre: "Puzzle", developer: "Gabriele Cirulli", rating: 4.5, popularity: 200, featured: true },
-            { name: "Flappy Bird", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/779dfa841_maxresdefault.jpg", url: "https://flappybird.io/", genre: "Arcade", developer: "Dong Nguyen", rating: 3.5, popularity: 120, featured: false },
-            { name: "Snake", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/5dadeeea8_need-advice-snake-game-in-2d-platformer-v0-6xna5w0be2od1.jpg", url: "https://www.mathsisfun.com/games/snake.html", genre: "Arcade", developer: "Classic Games Inc.", rating: 4.0, popularity: 180, featured: false },
-            { name: "Tetris", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/5fa1512e9_.jpeg", url: "https://tetris.com/play-tetris/", genre: "Puzzle", developer: "Alexey Pajitnov", rating: 4.7, popularity: 250, featured: true },
-            { name: "Pac-Man", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/e530a124f_.jpg", url: "httpsS://freepacman.org/", genre: "Arcade", developer: "Namco", rating: 4.3, popularity: 190, featured: false },
-            { name: "Minesweeper", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/45d8b1d22_minesweeperxp.jpeg", url: "httpsS://minesweeper.online/", genre: "Puzzle", developer: "Microsoft", rating: 4.1, popularity: 110, featured: false },
-            { name: "Crossy Road", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/1a3415e89_crossy-road.jpg", url: "httpsS://pixelpad.io/app/wsjezhiqjue/?emb=1", genre: "Arcade", developer: "Hipster Whale", rating: 4.4, popularity: 160, featured: false },
-            { name: "Basketball Stars", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/7dbad7de0_cover-1583231506155.png", url: "httpsS://basketball-stars.github.io/", genre: "Sports", developer: "Madpuffers", rating: 3.9, popularity: 90, featured: false },
-            { name: "Subway Surfers", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/ce0795484_Subway_Surfers.jpg", url: "httpsS://staticquasar931.github.io/Subway-Surfers/", genre: "Runner", developer: "Kiloo & SYBO Games", rating: 4.6, popularity: 220, featured: true },
-            { name: "Run 3", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/2b10d9af1_Run3_OG-logo.jpg", url: "httpsS://schoolisntfun.github.io/mnt/run3.html", genre: "Platformer", developer: "Kongregate", rating: 4.0, popularity: 130, featured: false },
-            { name: "Among Us", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/20ad47e5d_MV5BODI3ODMyZTgtZDdjYS00ZGRlLTg5YjMtNDY2ZjZlODg2NzYyXkEyXkFqcGc_V1_FMjpg_UX1000_.jpg", url: "https://universal-games-unblocked.vercel.app/projects/among-us/index.html", genre: "Party", developer: "Innersoth", rating: 4.8, popularity: 300, featured: true },
-            { name: "Vex 5", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/b4a0b9809_vex-5-1407904700.png", url: "httpsS://vexgame-unblocked.github.io/", genre: "Platformer", developer: "Agame", rating: 4.1, popularity: 100, featured: false },
-            { name: "Paper.io 2", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/05dbe70b1_unnamed.png", url: "httpsS://paper-io.com/paper-io-2", genre: "Strategy", developer: "Voodoo", rating: 4.2, popularity: 140, featured: false },
-            { name: "Moto X3M", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/21018956a_moto-x3m.jpg", url: "httpsS://moto-x3m.io/", genre: "Racing", developer: "Madpuffers", rating: 4.5, popularity: 170, featured: false },
-            { name: "Wordle", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/417e11ba6_wordle-logo.jpeg", url: "httpsS://artworksforchange.org/games/wordle/", genre: "Puzzle", developer: "Josh Wardle", rating: 4.3, popularity: 95, featured: false },
-            { name: "Solitaire", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/02ce4abb6_960d669195b918e976a2b56099aa5244f58aef1b3fb36e2ef6f19bbcf79db9a6.jpg", url: "https://www.solitr.com/", genre: "Card", developer: "Microsoft", rating: 3.7, popularity: 70, featured: false },
-            { name: "Chess", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/ac0b2d5f0_Chess_pieces_close_up.jpg", url: "httpsS://www.mathsisfun.com/games/chess.html", genre: "Board", developer: "Maths Is Fun", rating: 4.0, popularity: 115, featured: true },
-            { name: "Fireboy & Watergirl", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/a82991fe9_favicon1.png", url: "httpsS://html5.gamedistribution.com/a55c9cc9c21e4fc683c8c6857f3d0c75/?utm_source=fireboy-andwatergirl.io&utm_medium=fireboy-andwatergirl-1-forest-temple&utm_campaign=block-and-redirect", genre: "Adventure", developer: "Oslo Albet", rating: 4.6, popularity: 180, featured: false },
-            { name: "Guess Who?", image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/fe3d9ccb0_guess-who-multiplayer_1x1.png", url: "httpsS://www.calculators.org/games/guess-who", genre: "Board", developer: "Calculators.org", rating: 4.1, popularity: 85, featured: false },
-            /* <-- New game added --> */
-            { name: "Bloxd IO", image: null, url: "https://games.crazygames.com/en_US/bloxdhop-io/index.html?v=1.345", genre: "Platformer", rating: 4.3, featured: false }
+        // New combined game list
+        const allGamesData = [
+            { name: "Heroes Assemble", url: "https://www.crazygames.com/embed/heroes-assemble" },
+            { name: "Poxel-io", url: "https://www.crazygames.com/embed/poxel-io" },
+            { name: "Bitcoiner", url: "https://www.crazygames.com/embed/bitcoiner" },
+            { name: "ASMR Girl Livestream Mukbang", url: "https://www.crazygames.com/embed/asmr-slicing" },
+            { name: "Basketball Orbit", url: "https://www.crazygames.com/embed/basketball-stars" },
+            { name: "Corn Tycoon", url: "https://www.crazygames.com/embed/farming-simulator" },
+            { name: "Papas Wingeria", url: "https://www.crazygames.com/embed/papas-wingeria" },
+            { name: "Associations Word Connect", url: "https://www.crazygames.com/embed/word-connect" },
+            { name: "Fish Orbit", url: "https://www.crazygames.com/embed/fish-eat-fish" },
+            { name: "Drift Boss", url: "https://www.crazygames.com/embed/drift-boss" },
+            { name: "Mancala Classic", url: "https://www.mathsisfun.com/games/mancala.html" },
+            { name: "Money Factory", url: "https://www.crazygames.com/embed/money-factory" },
+            { name: "Pop Jewels", url: "https://www.crazygames.com/embed/jewel-shuffle" },
+            { name: "The Farmer", url: "https://www.crazygames.com/embed/idle-farming-business" },
+            { name: "Peckin Pixels", url: "https://www.newgrounds.com/portal/view/758155" },
+            { name: "Find the Pets", url: "https://www.crazygames.com/embed/find-the-cat" },
+            { name: "Runic Curse", url: "https://www.newgrounds.com/portal/view/743615" },
+            { name: "Jacksmith", url: "https://www.crazygames.com/embed/jacksmith" },
+            { name: "Magic Kingdom Hex Match", url: "https://www.crazygames.com/embed/hexa-sort" },
+            { name: "Pocketro", url: "https://www.crazygames.com/embed/pocket-battle" },
+            { name: "Mini Mine", url: "https://www.crazygames.com/embed/mining-rush" },
+            { name: "Big Tower Tiny Square 2", url: "https://www.newgrounds.com/portal/view/769473" },
+            { name: "Aim Master", url: "https://www.crazygames.com/embed/aim-trainer" },
+            { name: "Diner in the Storm", url: "https://www.newgrounds.com/portal/view/913715" },
+            { name: "Foono Online Multiplayer", url: "https://www.crazygames.com/embed/uno-online" },
+            { name: "Obby Mini Games", url: "https://www.crazygames.com/embed/obby-tower-parkour-climb" },
+            { name: "Erth Poker with Friends", url: "https://www.crazygames.com/embed/governor-of-poker-3" },
+            { name: "Art of Alchemy Merge Elements", url: "https://www.crazygames.com/embed/little-alchemy-2" },
+            { name: "Idle Ants", url: "https://www.crazygames.com/embed/idle-ants" },
+            { name: "Adventure Jumper", url: "https://www.crazygames.com/embed/vex-7" },
+            { name: "Bounce Blocku Golf", url: "https://www.crazygames.com/embed/golf-battle" },
+            { name: "100 Meters Race", url: "https://www.crazygames.com/embed/100-meters-race" },
+            { name: "Blade Merge", url: "https://www.crazygames.com/embed/merge-sword" },
+            { name: "Truck Simulator Real", url: "https://www.crazygames.com/embed/euro-truck-driver" },
+            { name: "Cave Gems", url: "https://www.crazygames.com/embed/gold-digger-frvr" },
+            { name: "My Chicken Farm", url: "https://www.crazygames.com/embed/hay-day" },
+            { name: "Chibi Doll Dress Up Coloring", url: "https://www.crazygames.com/embed/chibi-avatar-creator" },
+            { name: "Neon Planet Idle Clicker", url: "https://www.crazygames.com/embed/planet-clicker-2" },
+            { name: "Memory Cards", url: "https://www.mathsisfun.com/games/memory.html" },
+            { name: "Ragdoll Archers", url: "https://www.crazygames.com/embed/ragdoll-archers" },
+            { name: "Piles of Mahjong", url: "https://www.crazygames.com/embed/mahjong-dimensions" },
+            { name: "Skydom", url: "https://www.crazygames.com/embed/skydom" },
+            { name: "Word Wipe", url: "https://www.crazygames.com/embed/word-wipe" },
+            { name: "Bad Cat Prankster", url: "https://www.crazygames.com/embed/bad-cat" },
+            { name: "Tower Swap", url: "https://www.newgrounds.com/portal/view/750637" },
+            { name: "Mahjongg Solitaire", url: "https://www.crazygames.com/embed/mahjongg-solitaire" },
+            { name: "Arkadiums Bubble Shooter", url: "httpshttps://www.crazygames.com/embed/arkadiums-bubble-shooter" },
+            { name: "Bubble Blast", url: "https://www.crazygames.com/embed/bubble-shooter-hd" },
+            { name: "Slice Master", url: "https://www.crazygames.com/embed/slice-master" },
+            { name: "Speed Per Click Obby", url: "https://www.crazygames.com/embed/speed-click-test" },
+            { name: "Smash Karts", url: "https://www.crazygames.com/embed/smash-karts" },
+            { name: "Pixel Warfare", url: "https://www.crazygames.com/embed/pixel-warfare" },
+            { name: "Paper-io-2", url: "https://www.crazygames.com/embed/paper-io-2" },
+            { name: "Skydom Reforged", url: "https://www.crazygames.com/embed/skydom-reforged" },
+            { name: "Farm Merge Valley", url: "https://www.crazygames.com/embed/farm-merge-valley" },
+            { name: "Count Masters Stickman Games", url: "https://www.crazygames.com/embed/count-masters" },
+            { name: "Stickman Clash", url: "https://www.crazygames.com/embed/stickman-clash" },
+            { name: "Nuts Puzzle Sort by Color", url: "https://www.crazygames.com/embed/nuts-puzzle-sort-by-color" },
+            { name: "Thief Puzzle", url: "https://www.crazygames.com/embed/thief-puzzle" },
+            { name: "8 Ball Billiards Classic", url: "https://www.crazygames.com/embed/8-ball-billiards-classic" },
+            { name: "Onet Connect Classic", url: "https://www.crazygames.com/embed/onet-connect-classic" },
+            { name: "Draw Climber", url: "https://www.crazygames.com/embed/draw-climber" },
+            { name: "Cuberealm-io", url: "https://www.crazygames.com/embed/cuberealm-io" },
+            { name: "Obby Gym Simulator Escape", url: "https://www.crazygames.com/embed/obby-gym-simulator-escape" },
+            { name: "Skillwarz", url: "https://www.crazygames.com/embed/skillwarz" },
+            { name: "Guess Their Answer", url: "https://www.crazygames.com/embed/guess-their-answer" },
+            { name: "Man Runner 2048", url: "https://www.crazygames.com/embed/man-runner-2048" },
+            { name: "Tap 3d Wood Block Away", url: "https://www.crazygames.com/embed/tap-3d-wood-block-away" },
+            { name: "Space Waves", url: "https://www.crazygames.com/embed/space-waves" },
+            { name: "Evowars-io", url: "https://www.crazygames.com/embed/evowars-io" },
+            { name: "Fortzone Battle Royale", url: "https://www.crazygames.com/embed/fortzone-battle-royale" },
+            { name: "Grow a Garden (Growden.io)", url: "https://www.crazygames.com/embed/grow-a-garden-growden-io" },
+            { name: "Bloxd-io", url: "https://www.crazygames.com/embed/bloxdhop-io" },
+            /* { name: "Bloxdhop-io", url: "https://www.crazygames.com/embed/bloxd-io" }, */ /* <-- Removed duplicate */
+            // List 2
+            { name: "2048", url: "https://www.crazygames.com/embed/2048" },
+            { name: "Flappy Bird", url: "https://www.crazygames.com/embed/flappy-bird" },
+            { name: "Minesweeper", url: "https://www.crazygames.com/embed/minesweeper" },
+            { name: "Basketball Stars", url: "https://www.crazygames.com/embed/basketball-stars" },
+            { name: "Run 3", url: "https://www.crazygames.com/embed/run-3" },
+            { name: "Paper.io 2", url: "https://www.crazygames.com/embed/paper-io-2" },
+            { name: "Whooo", url: "https://www.crazygames.com/embed/whooo" },
+            { name: "Snake", url: "https://www.crazygames.com/embed/snake-io" },
+            { name: "Tetris", url: "https://www.crazygames.com/embed/free-tetris" },
+            { name: "Pac-Man", url: "https://www.crazygames.com/embed/pacman" },
+            { name: "Wordle", url: "https://www.crazygames.com/embed/wordler" },
+            { name: "Solitaire", url: "https://www.crazygames.com/embed/social-solitaire" }
+            /* { name: "Bloxd-io", url: "https://www.crazygames.com/embed/bloxdhop-io" } */
         ];
         
         // --- NEW THEME DATA ---
@@ -648,18 +631,25 @@
 
 
         let allGenres = ["all"];
+        
         // Process Links into Objects
-        const oldGames = rawLinks.map((url, index) => {
-            const slug = url.split('/').pop();
-            const title = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        const games = allGamesData.map((game, index) => {
+            const title = game.name;
+            const url = game.url;
+            const slug = title.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
             
             // Infer genre from keywords
             let genre = 'casual';
-            if (slug.includes('io')) genre = 'io';
-            else if (slug.includes('puzzle') || slug.includes('mahjong') || slug.includes('connect') || slug.includes('word')) genre = 'puzzle';
-            else if (slug.includes('shooter') || slug.includes('war') || slug.includes('battle') || slug.includes('clash') || slug.includes('archers') || slug.includes('skillwarz')) genre = 'action';
-            else if (slug.includes('drift') || slug.includes('race') || slug.includes('simulator')) genre = 'racing';
-            else if (slug.includes('obby') || slug.includes('jumper') || slug.includes('climber') || slug.includes('tower-square')) genre = 'platformer';
+            if (slug.includes('io') || slug.includes('poxel') || slug.includes('evowars') || slug.includes('cuberealm') || slug.includes('smash-karts')) genre = 'io';
+            else if (slug.includes('puzzle') || slug.includes('mahjong') || slug.includes('connect') || slug.includes('word') || slug.includes('alchemy') || slug.includes('memory') || slug.includes('2048') || slug.includes('tetris') || slug.includes('minesweeper') || slug.includes('wordle') || slug.includes('solitaire') || slug.includes('chess') || slug.includes('guess-who') || slug.includes('hexa-sort') || slug.includes('nuts-and-bolts') || slug.includes('tap-away') || slug.includes('onet-connect') || slug.includes('whooo')) genre = 'puzzle';
+            else if (slug.includes('shooter') || slug.includes('war') || slug.includes('battle') || slug.includes('clash') || slug.includes('archers') || slug.includes('skillwarz') || slug.includes('aim') || slug.includes('pixel-warfare') || slug.includes('fortzone')) genre = 'action';
+            else if (slug.includes('drift') || slug.includes('race') || slug.includes('simulator') || slug.includes('truck') || slug.includes('moto')) genre = 'racing';
+            else if (slug.includes('obby') || slug.includes('jumper') || slug.includes('climber') || slug.includes('tower-square') || slug.includes('vex') || slug.includes('run-3') || slug.includes('flappy') || slug.includes('draw-climber') || slug.includes('slope') || slug.includes('bloxd')) genre = 'platformer';
+            else if (slug.includes('basketball') || slug.includes('golf') || slug.includes('100-meters') || slug.includes('billiards') || slug.includes('8-ball')) genre = 'sports';
+            else if (slug.includes('papas') || slug.includes('tycoon') || slug.includes('factory') || slug.includes('farmer') || slug.includes('mine') || slug.includes('ants') || slug.includes('farm') || slug.includes('clicker') || slug.includes('bitcoiner') || slug.includes('asmr') || slug.includes('slicing')) genre = 'simulation';
+            else if (slug.includes('uno') || slug.includes('poker') || slug.includes('mancala') || slug.includes('among-us') || slug.includes('family-feud') || slug.includes('impostor')) genre = 'board';
+            else if (slug.includes('adventure') || slug.includes('runic-curse') || slug.includes('jacksmith') || slug.includes('pac-man') || slug.includes('fireboy') || slug.includes('heroes-assemble') || slug.includes('diner-in-the-storm')) genre = 'adventure';
+            else if (slug.includes('crossy-road') || slug.includes('snake') || slug.includes('slice-master') || slug.includes('bubble-shooter')) genre = 'arcade';
             
             if (!allGenres.includes(genre)) allGenres.push(genre);
             
@@ -669,30 +659,13 @@
             // Unique hue for card art
             const hue = (index * 137.5) % 360; 
 
-            return { id: index, title, url, genre, rating, slug, hue, image: null, featured: false }; /* <-- Added featured: false */
+            // Check for featured (from old newGamesList)
+            const featured = ["among-us", "tetris", "subway-surfers", "2048", "chess", "impostor"].includes(slug);
+
+            return { id: index, title, url, genre, rating, slug, hue, image: null, featured: featured };
         });
 
-        const newGames = newGamesList.map((game, index) => {
-            const genre = game.genre.toLowerCase();
-            if (!allGenres.includes(genre)) allGenres.push(genre);
-            
-            return {
-                id: index + oldGames.length,
-                title: game.name,
-                url: game.url,
-                genre: genre,
-                rating: game.rating,
-                slug: game.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-'),
-                hue: null,
-                image: game.image,
-                featured: game.featured || false /* <-- Use featured flag */
-            }
-        });
-
-        const games = [...oldGames, ...newGames];
-
-        // --- Music Player Removed ---
-
+        
         // --- DOM Elements ---
         const mainContentWrapper = document.getElementById('main-content-wrapper');
         const grid = document.getElementById('game-grid');
@@ -727,7 +700,16 @@
         // --- Initialization ---
         function init() {
             // Check password first
-            if (sessionStorage.getItem('nexus_auth') === 'true') {
+            let isAuth = false;
+            try {
+                // Check for auth in session storage
+                isAuth = sessionStorage.getItem('nexus_auth') === 'true';
+            } catch (e) {
+                console.warn("Session storage is not available. Password will be required every time.");
+                isAuth = false;
+            }
+
+            if (isAuth) {
                 showApp();
             } else {
                 // Add password listeners
@@ -802,7 +784,11 @@
         // --- Password Logic ---
         function checkPassword() {
             if (passwordInput.value === SUPER_PASSWORD) {
-                sessionStorage.setItem('nexus_auth', 'true');
+                try {
+                    sessionStorage.setItem('nexus_auth', 'true');
+                } catch (e) {
+                    console.warn("Session storage is not available. Auth will not be saved.");
+                }
                 showApp();
             } else {
                 passwordError.innerText = "Incorrect Password";
@@ -942,7 +928,6 @@
         function openModal(game) {
             activeGameUrl = game.url;
             modalTitle.innerText = game.title;
-            // modalRating.innerText = game.rating; // Removed
             
             // Placeholder art: Use image if available, otherwise fall back to pulse
             const placeholderArt = game.image
@@ -1175,8 +1160,6 @@
                 themeModal.classList.remove('flex');
             }, 300);
         }
-
-        // --- Music Removed ---
 
         // Start
         init();
