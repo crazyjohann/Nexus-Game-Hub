@@ -592,10 +592,9 @@
             { name: "Evowars-io", url: "https://www.crazygames.com/embed/evowars-io" },
             { name: "Fortzone Battle Royale", url: "https://www.crazygames.com/embed/fortzone-battle-royale" },
             { name: "Grow a Garden (Growden.io)", url: "https://www.crazygames.com/embed/grow-a-garden-growden-io" },
-            { name: "Bloxd-io", url: "https://www.crazygames.com/embed/bloxd-io" },
-            /* { name: "Bloxdhop-io", url: "https://www.crazygames.com/embed/bloxd-io" }, */ /* <-- Removed duplicate */
-            
-            { name: "Spearfishing", url: "https://www.crazygames.com/embed/spearfishing" },
+            { name: "Bloxdhop-io", url: "https://www.crazygames.com/embed/bloxd-io" },
+            // List 2
+            { name: "Slope 2", url: "https://2slope.github.io/" },
             { name: "Escape From Prison Multiplayer", url: "https://www.crazygames.com/embed/escape-from-prison-multiplayer" },
             { name: "Night Club Security", url: "https://www.crazygames.com/embed/night-club-security" },
             { name: "Project Restoration", url: "https://www.crazygames.com/embed/project-restoration-axt" },
@@ -942,8 +941,8 @@
 
             featuredGames.forEach(game => {
                 const card = document.createElement('div');
-                // Added 'featured-card' class
-                card.className = 'glass-card featured-card rounded-2xl p-4 cursor-pointer group flex flex-col';
+                // Added hover scale effect for better design
+                card.className = 'glass-card featured-card rounded-2xl p-4 cursor-pointer group flex flex-col transition-transform duration-300 hover:scale-105';
                 card.onclick = () => openModal(game);
 
                 const artStyle = game.image
@@ -989,7 +988,8 @@
 
             list.forEach(game => {
                 const card = document.createElement('div');
-                card.className = 'glass-card rounded-2xl p-4 cursor-pointer group flex flex-col h-[280px]';
+                // Added hover scale effect for better design
+                card.className = 'glass-card rounded-2xl p-4 cursor-pointer group flex flex-col h-[280px] transition-transform duration-300 hover:scale-105';
                 card.onclick = () => openModal(game);
 
                 // Procedural Art Background or Image
