@@ -513,7 +513,7 @@
             
             <p id="password-error" class="text-[var(--neon-pink)] h-6 mt-2 text-sm text-center"></p>
             
-            <button id="password-btn" class="w-full mt-2 p-3 bg-[var(--neon-blue)] text-black font-bold text-lg rounded-lg hover:bg-white hover:scale-105 transition shadow-[0_0_20px_rgba(0,243,255,0.4)]">
+            <button id="password-btn" type="button" class="w-full mt-2 p-3 bg-[var(--neon-blue)] text-black font-bold text-lg rounded-lg hover:bg-white hover:scale-105 transition shadow-[0_0_20px_rgba(0,243,255,0.4)]">
                 ENTER
             </button>
         </div>
@@ -524,98 +524,44 @@
         // --- Data ---
         const SUPER_PASSWORD = "nexusgames67"; // Password
         
-        // 200 Unique Games
-        const allGamesData = [
+        // Base List of Games (Previously filtered, now we add to it)
+        // Existing games are listed first so they render ahead of new additions.
+        const existingGamesList = [
             { name: "Heroes Assemble", url: "https://www.crazygames.com/embed/heroes-assemble" },
             { name: "Poxel-io", url: "https://www.crazygames.com/embed/poxel-io" },
             { name: "Bitcoiner", url: "https://www.crazygames.com/embed/bitcoiner" },
-            { name: "ASMR Girl Livestream Mukbang", url: "https://www.crazygames.com/embed/asmr-slicing" },
-            { name: "Corn Tycoon", url: "https://www.crazygames.com/embed/farming-simulator" },
             { name: "Papas Wingeria", url: "https://www.crazygames.com/embed/papas-wingeria" },
-            { name: "Associations Word Connect", url: "https://www.crazygames.com/embed/word-connect" },
-            { name: "Fish Orbit", url: "https://www.crazygames.com/embed/fish-eat-fish" },
-            { name: "Drift Boss", url: "https://www.crazygames.com/embed/drift-boss" },
-            { name: "Money Factory", url: "https://www.crazygames.com/embed/money-factory" },
-            { name: "Pop Jewels", url: "https://www.crazygames.com/embed/jewel-shuffle" },
             { name: "The Farmer", url: "https://www.crazygames.com/embed/idle-farming-business" },
-            { name: "Peckin Pixels", url: "https://www.newgrounds.com/portal/view/758155" },
-            { name: "Find the Pets", url: "https://www.crazygames.com/embed/find-the-cat" },
-            { name: "Runic Curse", url: "https://www.newgrounds.com/portal/view/743615" },
             { name: "Jacksmith", url: "https://www.crazygames.com/embed/jacksmith" },
             { name: "Magic Kingdom Hex Match", url: "https://www.crazygames.com/embed/hexa-sort" },
-            { name: "Pocketro", url: "https://www.crazygames.com/embed/pocket-battle" },
             { name: "Mini Mine", url: "https://www.crazygames.com/embed/mining-rush" },
-            { name: "Big Tower Tiny Square 2", url: "https://www.newgrounds.com/portal/view/769473" },
-            { name: "Aim Master", url: "https://www.crazygames.com/embed/aim-trainer" },
-            { name: "Diner in the Storm", url: "https://www.newgrounds.com/portal/view/913715" },
-            { name: "Foono Online Multiplayer", url: "https://www.crazygames.com/embed/uno-online" },
-            { name: "Obby Mini Games", url: "https://www.crazygames.com/embed/obby-tower-parkour-climb" },
-            { name: "Erth Poker with Friends", url: "https://www.crazygames.com/embed/governor-of-poker-3" },
             { name: "Art of Alchemy Merge Elements", url: "https://www.crazygames.com/embed/little-alchemy-2" },
             { name: "Idle Ants", url: "https://www.crazygames.com/embed/idle-ants" },
-            { name: "Adventure Jumper", url: "https://www.crazygames.com/embed/vex-7" },
-            { name: "Bounce Blocku Golf", url: "https://www.crazygames.com/embed/golf-battle" },
             { name: "100 Meters Race", url: "https://www.crazygames.com/embed/100-meters-race" },
-            { name: "Blade Merge", url: "https://www.crazygames.com/embed/merge-sword" },
-            { name: "Truck Simulator Real", url: "https://www.crazygames.com/embed/euro-truck-driver" },
-            { name: "Cave Gems", url: "https://www.crazygames.com/embed/gold-digger-frvr" },
-            { name: "My Chicken Farm", url: "https://www.crazygames.com/embed/hay-day" },
-            { name: "Chibi Doll Dress Up Coloring", url: "https://www.crazygames.com/embed/chibi-avatar-creator" },
             { name: "Neon Planet Idle Clicker", url: "https://www.crazygames.com/embed/planet-clicker-2" },
-            { name: "Memory Cards", url: "https://www.mathsisfun.com/games/memory.html" },
             { name: "Ragdoll Archers", url: "https://www.crazygames.com/embed/ragdoll-archers" },
-            { name: "Piles of Mahjong", url: "https://www.crazygames.com/embed/mahjong-dimensions" },
             { name: "Skydom", url: "https://www.crazygames.com/embed/skydom" },
-            { name: "Word Wipe", url: "https://www.crazygames.com/embed/word-wipe" },
-            { name: "Bad Cat Prankster", url: "https://www.crazygames.com/embed/bad-cat" },
-            { name: "Tower Swap", url: "https://www.newgrounds.com/portal/view/750637" },
-            { name: "Mahjongg Solitaire", url: "https://www.crazygames.com/embed/mahjongg-solitaire" },
-            { name: "Arkadiums Bubble Shooter", url: "https://www.crazygames.com/embed/arkadiums-bubble-shooter" },
-            { name: "Bubble Blast", url: "https://www.crazygames.com/embed/bubble-shooter-hd" },
             { name: "Slice Master", url: "https://www.crazygames.com/embed/slice-master" },
-            { name: "Speed Per Click Obby", url: "https://www.crazygames.com/embed/speed-click-test" },
-            { name: "Smash Karts", url: "https://www.crazygames.com/embed/smash-karts" },
             { name: "Pixel Warfare", url: "https://www.crazygames.com/embed/pixel-warfare" },
-            { name: "Skydom Reforged", url: "https://www.crazygames.com/embed/skydom-reforged" },
-            { name: "Farm Merge Valley", url: "https://www.crazygames.com/embed/farm-merge-valley" },
-            { name: "Count Masters Stickman Games", url: "https://www.crazygames.com/embed/count-masters" },
-            { name: "Stickman Clash", url: "https://www.crazygames.com/embed/stickman-clash" },
-            { name: "Nuts Puzzle Sort by Color", url: "https://www.crazygames.com/embed/nuts-puzzle-sort-by-color" },
             { name: "Thief Puzzle", url: "https://www.crazygames.com/embed/thief-puzzle" },
             { name: "8 Ball Billiards Classic", url: "https://www.crazygames.com/embed/8-ball-billiards-classic" },
-            { name: "Onet Connect Classic", url: "https://www.crazygames.com/embed/onet-connect-classic" },
             { name: "Draw Climber", url: "https://www.crazygames.com/embed/draw-climber" },
             { name: "Cuberealm-io", url: "https://www.crazygames.com/embed/cuberealm-io" },
-            { name: "Obby Gym Simulator Escape", url: "https://www.crazygames.com/embed/obby-gym-simulator-escape" },
             { name: "Skillwarz", url: "https://www.crazygames.com/embed/skillwarz" },
             { name: "Guess Their Answer", url: "https://www.crazygames.com/embed/guess-their-answer" },
-            { name: "Man Runner 2048", url: "https://www.crazygames.com/embed/man-runner-2048" },
-            { name: "Tap 3d Wood Block Away", url: "https://www.crazygames.com/embed/tap-3d-wood-block-away" },
             { name: "Space Waves", url: "https://www.crazygames.com/embed/space-waves" },
-            { name: "Evowars-io", url: "https://www.crazygames.com/embed/evowars-io" },
-            { name: "Fortzone Battle Royale", url: "https://www.crazygames.com/embed/fortzone-battle-royale" },
-            { name: "Grow a Garden (Growden.io)", url: "https://www.crazygames.com/embed/grow-a-garden-growden-io" },
             { name: "Bloxd-IO", url: "https://www.crazygames.com/embed/bloxdhop-io" },
             { name: "Spearfishing", url: "https://www.crazygames.com/embed/spearfishing" },
-            { name: "Escape From Prison Multiplayer", url: "https://www.crazygames.com/embed/escape-from-prison-multiplayer" },
             { name: "Night Club Security", url: "https://www.crazygames.com/embed/night-club-security" },
-            { name: "Project Restoration", url: "https://www.crazygames.com/embed/project-restoration-axt" },
             { name: "Real Fishing Simulator", url: "https://www.crazygames.com/embed/real-fishing-simulator" },
             { name: "Used Car Dealer Tycoon", url: "https://www.crazygames.com/embed/used-car-dealer-tycoon" },
-            { name: "Bricks Breaker", url: "https://www.crazygames.com/embed/bricks-breaker" },
-            { name: "Traffic Loop", url: "https://www.crazygames.com/embed/traffic-loop" },
             { name: "The Worlds Easyest Game", url: "https://www.crazygames.com/embed/the-world-s-easyest-game" },
             { name: "Ice Fishing", url: "https://www.crazygames.com/embed/ice-fishing" },
             { name: "Emoji Puzzle", url: "https://www.crazygames.com/embed/emoji-puzzle" },
             { name: "Venge.io", url: "https://www.crazygames.com/embed/venge-io" },
-            { name: "Krunker.io", url: "https://www.crazygames.com/embed/krunker-io" },
             { name: "Murder", url: "https://www.crazygames.com/embed/murder" },
-            { name: "Getaway Shootout", url: "https://www.crazygames.com/embed/getaway-shootout" },
             { name: "Rocket Bot Royale", url: "https://www.crazygames.com/embed/rocket-bot-royale" },
-            { name: "Narrow.One", url: "https://www.crazygames.com/embed/narrow-one" },
             { name: "Boxing Random", url: "https://www.crazygames.com/embed/boxing-random" },
-            { name: "Raft Wars", url: "https://www.crazygames.com/embed/raft-wars" },
-            { name: "Stunt Paradise", url: "https://www.crazygames.com/embed/stunt-paradise" },
             { name: "Sharkosaurus Rampage", url: "https://www.crazygames.com/embed/sharkosaurus-rampage" },
             { name: "BuildNow GG", url: "https://www.crazygames.com/embed/buildnow-gg" },
             { name: "Rooftop Snipers", url: "https://www.crazygames.com/embed/rooftop-snipers" },
@@ -625,7 +571,6 @@
             { name: "Stick Fighter", url: "https://www.crazygames.com/embed/stick-fighter" },
             { name: "Car Simulator Arena", url: "https://www.crazygames.com/embed/car-simulator-arena" },
             { name: "Temple of Boom", url: "https://www.crazygames.com/embed/temple-of-boom" },
-            { name: "Evo.io", url: "https://www.crazygames.com/embed/ev-io" },
             { name: "Penalty Shooters 2", url: "https://www.crazygames.com/embed/penalty-shooters-2" },
             { name: "Bomber Friends", url: "https://www.crazygames.com/embed/bomber-friends" },
             { name: "Crazy Pixel Apocalypse", url: "https://www.crazygames.com/embed/crazy-pixel-apocalypse" },
@@ -633,9 +578,6 @@
             { name: "Bodycamera Shooter", url: "https://www.crazygames.com/embed/bodycamera-shooter" },
             { name: "Time Shooter 2", url: "https://www.crazygames.com/embed/time-shooter-2" },
             { name: "Pixel Gun 3D", url: "https://www.crazygames.com/embed/pixel-gun-3d" },
-            { name: "Voxiom.io", url: "https://www.crazygames.com/embed/voxiom-io" },
-            { name: "Tileman.io", url: "https://www.crazygames.com/embed/tileman-io" },
-            { name: "Kour.io", url: "https://www.crazygames.com/embed/kour-io" },
             { name: "Taming.io", url: "https://www.crazygames.com/embed/taming-io" },
             { name: "Worm Hunt", url: "https://www.crazygames.com/embed/worm-hunt" },
             { name: "Polytrack", url: "https://www.crazygames.com/embed/polytrack" },
@@ -645,119 +587,149 @@
             { name: "MX Offroad Master", url: "https://www.crazygames.com/embed/mx-offroad-master" },
             { name: "Super Star Car", url: "https://www.crazygames.com/embed/super-star-car" },
             { name: "Sky Riders", url: "https://www.crazygames.com/embed/sky-riders" },
-            { name: "Cut the Rope", url: "https://www.crazygames.com/embed/cut-the-rope" },
-            { name: "Little Alchemy", url: "https://www.crazygames.com/embed/little-alchemy" },
             { name: "The Impossible Quiz", url: "https://www.crazygames.com/embed/the-impossible-quiz" },
             { name: "Escape or Die", url: "https://www.crazygames.com/embed/escape-or-die" },
             { name: "Puzzle Room Escape", url: "https://www.crazygames.com/embed/puzzle-room-escape" },
             { name: "Daily Room Escape", url: "https://www.crazygames.com/embed/daily-room-escape" },
             { name: "Paint Room Escape", url: "https://www.crazygames.com/embed/paint-room-escape" },
-            { name: "Block Puzzle Master", url: "https://www.crazygames.com/embed/block-puzzle-master" },
-            { name: "Favorite Puzzles", url: "https://www.crazygames.com/embed/favorite-puzzles" },
             { name: "Gridpunk - 3v3 Battle Royale", url: "https://www.crazygames.com/embed/gridpunk---3v3-battle-royale" },
-            { name: "Survev.io", url: "https://www.crazygames.com/embed/survev" },
             { name: "Fall Beans", url: "https://www.crazygames.com/embed/fall-beans" },
             { name: "Fleeing the Complex", url: "https://www.crazygames.com/embed/fleeing-the-complex" },
-            { name: "Escaping the Prison", url: "https://www.crazygames.com/embed/escaping-the-prison" },
-            { name: "Squirrel with a Gun", url: "https://www.crazygames.com/embed/squirrel-with-a-gun" },
-            { name: "Eggy Car", url: "https://www.crazygames.com/embed/eggy-car" },
-            { name: "Basketball Superstars", url: "https://www.crazygames.com/embed/basketball-superstars" },
-            { name: "Shell Shockers", url: "https://www.crazygames.com/embed/shellshockersio" },
-            { name: "Agar.io", url: "https://www.crazygames.com/embed/agario" },
-            { name: "Slither.io", url: "https://www.crazygames.com/embed/slitherio" },
-            { name: "Diep.io", url: "https://www.crazygames.com/embed/diepio" },
-            { name: "1v1.LOL", url: "https://www.crazygames.com/embed/1v1-lol" },
-            { name: "Bonk.io", url: "https://www.crazygames.com/embed/bonkio" },
             { name: "Skribbl.io", url: "https://www.crazygames.com/embed/skribblio" },
-            { name: "Betrayal.io", url: "https://www.crazygames.com/embed/betrayal-io" },
-            { name: "Holey.io", url: "https://www.crazygames.com/embed/holey-io-battle-royale" },
-            { name: "Lolbeans.io", url: "https://www.crazygames.com/embed/lolbeans-io" },
-            { name: "Worms.io", url: "https://www.crazygames.com/embed/worms-io" },
-            { name: "Stickman Kombat 2D", url: "https://www.crazygames.com/embed/stickman-kombat-2d" },
-            { name: "Moscow Metro Driver 3D", url: "https://www.crazygames.com/embed/moscow-metro-driver-3d" },
-            { name: "Simply Prop Hunt", url: "https://www.crazygames.com/embed/simply-prop-hunt" },
-            { name: "Destiny King", url: "https://www.crazygames.com/embed/destiny-king-vtg" },
-            { name: "Money Gun Clicker", url: "https://www.crazygames.com/embed/money-gun-clicker" },
-            { name: "Fortress of the Wizard", url: "https://www.crazygames.com/embed/fortress-of-the-wizard-mfx" },
-            { name: "Zomblox", url: "https://www.crazygames.com/embed/zomblox-mzc" },
-            { name: "Idle Cannon", url: "https://www.crazygames.com/embed/idle-cannon" },
-            { name: "Heavy Duty Vehicle Zone", url: "https://www.crazygames.com/embed/heavy-duty-vehicle-zone" },
+            { name: "Wormate.io", url: "https://www.crazygames.com/embed/wormateio" },
+            { name: "Geometry Dash Online", url: "https://www.crazygames.com/embed/geometry-dash-online" },
+            { name: "Geometry Neon Dash Subzero", url: "https://www.crazygames.com/embed/geometry-neon-dash-subzero" },
+            { name: "Bloxorz", url: "https://www.crazygames.com/embed/bloxorz" },
+            { name: "Duck Life", url: "https://www.crazygames.com/embed/ducklife" },
+            { name: "Duck Life 2", url: "https://www.crazygames.com/embed/ducklife-2" },
+            { name: "Duck Life Space", url: "https://www.crazygames.com/embed/duck-life-space" },
+            { name: "Ducklings", url: "https://www.crazygames.com/embed/ducklings" },
+            { name: "Slope Tunnel", url: "https://www.crazygames.com/embed/slope-tunnel" },
+            { name: "Color Tunnel", url: "https://www.crazygames.com/embed/color-tunnel" },
+            { name: "BasketBros", url: "https://www.crazygames.com/embed/basketbros" },
+            { name: "Mine Clone", url: "https://www.crazygames.com/embed/mine-clone" },
+            { name: "Cookie Clicker", url: "https://www.crazygames.com/embed/cookie-clicker" },
+            { name: "Clicker Heroes", url: "https://www.crazygames.com/embed/clicker-heroes" },
+            { name: "Papa's Freezeria", url: "https://www.crazygames.com/embed/papas-freezeria" },
+            { name: "Papa's Taco Mia", url: "https://www.crazygames.com/embed/papas-taco-mia" },
+            { name: "Google Feud", url: "https://www.crazygames.com/embed/google-feud" },
+            { name: "Snake", url: "https://www.mathsisfun.com/games/snake.html" },
+            { name: "Minesweeper", url: "https://www.crazygames.com/embed/minesweeper" },
+            { name: "Basketball Stars", url: "https://www.crazygames.com/embed/basketball-stars" },
+            { name: "Run 3", url: "https://www.crazygames.com/embed/run-3" },
+            { name: "Chess", url: "https://www.mathsisfun.com/games/chess.html" },
+            { name: "Whooo?", url: "https://www.crazygames.com/embed/whooo" }
+        ];
+
+        const newGamesList = [
+            { name: "Asmr-Girl-Livestream-Mukbang", url: "https://games.crazygames.com/en_US/asmr-girl-livestream-mukbang/index.html?v=1.347" },
+            { name: "Corn Tycoon", url: "https://games.crazygames.com/en_US/corn-tycoon/index.html?v=1.347" },
+            { name: "Money Factory", url: "https://games.crazygames.com/en_US/money-factory-aqs/index.html?v=1.347" },
+            { name: "Pop Jewels", url: "https://games.crazygames.com/en_US/pop-jewels/index.html?v=1.347" },
+            { name: "Find the Pets", url: "https://games.crazygames.com/en_US/find-the-pets-cph/index.html?v=1.347" },
+            { name: "Runic Curse", url: "https://games.crazygames.com/en_US/runic-curse/index.html?v=1.347" },
+            { name: "Pocketro", url: "https://games.crazygames.com/en_US/pocketro/index.html?v=1.347" },
+            { name: "Big Tower Tiny Square 2", url: "https://games.crazygames.com/en_US/big-tower-tiny-square-2/index.html?v=1.347" },
+            { name: "Aim Master", url: "https://games.crazygames.com/en_US/aim-master/index.html?v=1.347" },
+            { name: "Diner in the Storm", url: "https://games.crazygames.com/en_US/diner-in-the-storm/index.html?v=1.347" },
+            { name: "Foono Online Multiplayer", url: "https://games.crazygames.com/en_US/foono-online-multiplayer-card-game/index.html?v=1.347" },
+            { name: "Bounce Blocku Golf", url: "https://games.crazygames.com/en_US/bounce-blocku-golf/index.html?v=1.347" },
+            { name: "Blade Merge", url: "https://games.crazygames.com/en_US/blade-merge/index.html?v=1.347" },
+            { name: "My Chicken Farm", url: "https://games.crazygames.com/en_US/my-chicken-farm/index.html?v=1.347" },
+            { name: "Chibi Doll Dress Up Coloring", url: "https://games.crazygames.com/en_US/chibi-doll-dress-up-coloring/index.html?v=1.347" },
+            { name: "Piles of Mahjong", url: "https://games.crazygames.com/en_US/piles-of-mahjong-jhb/index.html?v=1.347" },
+            { name: "Tower Swap", url: "https://games.crazygames.com/en_US/tower-swap/index.html?v=1.347" },
+            { name: "Mahjongg Solitaire", url: "https://games.crazygames.com/en_US/mahjongg-solitaire/index.html?v=1.347" },
+            { name: "Arkadium's Bubble Shooter", url: "https://games.crazygames.com/en_US/arkadium-s-bubble-shooter/index.html?v=1.347" },
+            { name: "Bubble Blast", url: "https://games.crazygames.com/en_US/bubble-blast-pwd/index.html?v=1.347" },
+            { name: "Smash Karts", url: "https://games.crazygames.com/en_US/smash-karts/index.html?v=1.347" },
+            { name: "Skydom Reforged", url: "https://games.crazygames.com/en_US/skydom-reforged/index.html?v=1.347" },
+            { name: "Farm Merge Valley", url: "https://games.crazygames.com/en_US/farm-merge-valley/index.html?v=1.347" },
+            { name: "Count Masters Stickman Games", url: "https://games.crazygames.com/en_US/count-masters-stickman-games/index.html?v=1.347" },
+            { name: "Nuts Puzzle Sort by Color", url: "https://games.crazygames.com/en_US/nuts-puzzle-sort-by-color/index.html?v=1.347" },
+            { name: "Obby Gym Simulator Escape", url: "https://games.crazygames.com/en_US/obby-gym-simulator-escape/index.html?v=1.347" },
+            { name: "Tap 3d Wood Block Away", url: "https://games.crazygames.com/en_US/tap-3d-wood-block-away/index.html?v=1.347" },
+            { name: "Evowars-io", url: "https://games.crazygames.com/en_US/evowarsio/index.html?v=1.347" },
+            { name: "Fortzone Battle Royale", url: "https://games.crazygames.com/en_US/fortzone-battle-royale-xkd/index.html?v=1.347" },
+            { name: "Grow a Garden", url: "https://games.crazygames.com/en_US/grow-a-garden---growden-io/index.html?v=1.347" },
+            { name: "Escape From Prison Multiplayer", url: "https://games.crazygames.com/en_US/escape-from-prison-multiplayer/index.html?v=1.347" },
+            { name: "Bricks Breaker", url: "https://games.crazygames.com/en_US/bricks-breaker/index.html?v=1.347" },
+            { name: "Traffic Loop", url: "https://games.crazygames.com/en_US/traffic-loop/index.html?v=1.347" },
+            { name: "Krunker.io", url: "https://games.crazygames.com/en_US/krunker-io/index.html?v=1.347" },
+            { name: "Getaway Shootout", url: "https://games.crazygames.com/en_US/getaway-shootout/index.html?v=1.347" },
+            { name: "Narrow.One", url: "https://games.crazygames.com/en_US/narrow-one/index.html?v=1.347" },
+            { name: "Stunt Paradise", url: "https://games.crazygames.com/en_US/stunt-paradise/index.html?v=1.347" },
+            { name: "Voxiom.io", url: "https://games.crazygames.com/en_US/voxiom-io/index.html?v=1.347" },
+            { name: "Tileman.io", url: "https://games.crazygames.com/en_US/tileman-io/index.html?v=1.347" },
+            { name: "Kour.io", url: "https://games.crazygames.com/en_US/kour-io/index.html?v=1.347" },
+            { name: "Cut the Rope", url: "https://games.crazygames.com/en_US/cut-the-rope-ebx/index.html?v=1.347" },
+            { name: "Little Alchemy", url: "https://games.crazygames.com/en_US/little-alchemy/index.html?v=1.347" },
+            { name: "Block Blaster", url: "https://games.crazygames.com/en_US/block-puzzle-master/index.html?v=1.347" },
+            { name: "Favorite Puzzles", url: "https://games.crazygames.com/en_US/favorite-puzzles/index.html?v=1.347" },
+            { name: "Survev.io", url: "https://games.crazygames.com/en_US/survev/index.html?v=1.347" },
+            { name: "Escaping the Prison", url: "https://games.crazygames.com/en_US/escaping-the-prison/index.html?v=1.347" },
+            { name: "Squirrel with a Gun", url: "https://games.crazygames.com/en_US/squirrel-with-a-gun/index.html?v=1.347" },
+            { name: "Eggy Car", url: "https://games.crazygames.com/en_US/eggy-car/index.html?v=1.347" },
+            { name: "Basketball Superstars", url: "https://games.crazygames.com/en_US/basketball-superstars/index.html?v=1.347" },
+            { name: "Shell Shockers", url: "https://games.crazygames.com/en_US/shellshockersio/index.html?v=1.347" },
+            { name: "Agar.io", url: "https://games.crazygames.com/en_US/agario/index.html?v=1.347" },
+            { name: "Diep.io", url: "https://games.crazygames.com/en_US/diepio/index.html?v=1.347" },
+            { name: "Holey.io Battle Royale", url: "https://games.crazygames.com/en_US/holey-io-battle-royale/index.html?v=1.347" },
+            { name: "LOLbeans.io", url: "https://games.crazygames.com/en_US/lolbeans-io/index.html?v=1.347" },
+            { name: "Worms.io", url: "https://games.crazygames.com/en_US/worms-io/index.html?v=1.347" },
             { name: "Merge Age Warriors", url: "https://www.crazygames.com/embed/merge-age-warriors" },
             { name: "Jetpack Jump", url: "https://www.crazygames.com/embed/jetpack-jump" },
             { name: "Break the Glass", url: "https://www.crazygames.com/embed/break-the-glass" },
             { name: "Moto X3M", url: "https://www.crazygames.com/embed/moto-x3m" },
             { name: "Moto X3M 4 Winter", url: "https://www.crazygames.com/embed/moto-x3m-4" },
-            { name: "Moto X3M Spooky Land", url: "https://www.crazygames.com/embed/moto-x3m-spooky-land" },
+            { name: "Moto X3M 5 Pool Party", url: "https://www.crazygames.com/embed/moto-x3m-pool-party" },
             { name: "Disc Us", url: "https://www.crazygames.com/embed/disc-us" },
-            { name: "Wormate.io", url: "https://www.crazygames.com/embed/wormateio" },
-            { name: "Subway Surfers", url: "https://www.crazygames.com/embed/subway-surfers" },
-            { name: "Geometry Dash Online", url: "https://www.crazygames.com/embed/geometry-dash-online" },
-            { name: "Geometry Neon Dash Subzero", url: "https://www.crazygames.com/embed/geometry-neon-dash-subzero" },
             { name: "Geometry Dash Meltdown", url: "https://www.crazygames.com/embed/geometry-dash-meltdown" },
-            { name: "Happy Wheels", url: "https://www.crazygames.com/embed/happy-wheels" },
-            { name: "Totally Accurate Battle Simulator", url: "https://www.crazygames.com/embed/totally-accurate-battle-simulator-tabs" },
-            { name: "Fireboy and Watergirl 1: Forest Temple", url: "https://www.crazygames.com/embed/fireboy-and-watergirl-the-forest-temple" },
-            { name: "Fireboy and Watergirl 2: Light Temple", url: "https://www.crazygames.com/embed/the-light-temple" },
-            { name: "Fireboy and Watergirl 3: Ice Temple", url: "https://www.crazygames.com/embed/the-ice-temple" },
-            { name: "Fireboy and Watergirl 4: Crystal Temple", url: "https://www.crazygames.com/embed/the-crystal-temple" },
-            { name: "Fireboy and Watergirl 5: Elements", url: "https://www.crazygames.com/embed/fireboy-and-watergirl-5-elements" },
-            { name: "Fireboy and Watergirl 6: Fairy Tales", url: "https://www.crazygames.com/embed/fireboy-and-watergirl-6-fairy-tales" },
-            { name: "Bloxorz", url: "https://www.crazygames.com/embed/bloxorz" },
-            { name: "Duck Life", url: "https://www.crazygames.com/embed/ducklife" },
-            { name: "Duck Life 2", url: "https://www.crazygames.com/embed/ducklife-2" },
-            { name: "Duck Life 3", url: "https://www.crazygames.com/embed/ducklife-3" },
-            { name: "Duck Life 4", url: "https://www.crazygames.com/embed/ducklife-4" },
-            { name: "Duck Life Space", url: "https://www.crazygames.com/embed/duck-life-space" },
-            { name: "Ducklings", url: "https://www.crazygames.com/embed/ducklings" },
-            { name: "Idle Breakout", url: "https://www.crazygames.com/embed/idle-breakout" },
-            { name: "Crossy Road", url: "https://www.crazygames.com/embed/crossy-road" },
-            { name: "Slope Tunnel", url: "https://www.crazygames.com/embed/slope-tunnel" },
-            { name: "Color Tunnel", url: "https://www.crazygames.com/embed/color-tunnel" },
-            { name: "BasketBros", url: "https://www.crazygames.com/embed/basketbros" },
-            { name: "Mine Clone", url: "https://www.crazygames.com/embed/mine-clone" },
-            { name: "G-Switch 3", url: "https://www.crazygames.com/embed/g-switch-3" },
-            { name: "Tunnel Rush", url: "https://www.crazygames.com/embed/tunnel-rush" },
-            { name: "Drive Mad", url: "https://www.crazygames.com/embed/drive-mad" },
-            { name: "Retro Bowl", url: "https://www.crazygames.com/embed/retro-bowl" },
-            { name: "Cookie Clicker", url: "https://www.crazygames.com/embed/cookie-clicker" },
-            { name: "Clicker Heroes", url: "https://www.crazygames.com/embed/clicker-heroes" },
-            { name: "BitLife - Life Simulator", url: "https://www.crazygames.com/embed/bitlife---life-simulator" },
-            { name: "Temple Run 2", url: "https://www.crazygames.com/embed/temple-run-2" },
-            { name: "Fruit Ninja", url: "https://www.crazygames.com/embed/fruit-ninja" },
-            { name: "Jetpack Joyride", url: "https://www.crazygames.com/embed/jetpack-joyride" },
-            { name: "Dumb Ways to Die", url: "https://www.crazygames.com/embed/dumb-ways-to-die" },
-            { name: "World's Hardest Game", url: "https://www.crazygames.com/embed/worlds-hardest-game" },
-            { name: "Papa's Pizzeria", url: "https://www.crazygames.com/embed/papas-pizzeria" },
-            { name: "Papa's Freezeria", url: "https://www.crazygames.com/embed/papas-freezeria" },
-            { name: "Papa's Burgeria", url: "https://www.crazygames.com/embed/papas-burgeria" },
-            { name: "Papa's Taco Mia", url: "https://www.crazygames.com/embed/papas-taco-mia" },
-            { name: "Google Feud", url: "https://www.crazygames.com/embed/google-feud" },
-            { name: "The Higher Lower Game", url: "https://www.crazygames.com/embed/the-higher-lower-game" },
-            { name: "Akinator", url: "https://www.crazygames.com/embed/akinator" },
-            { name: "Bad Ice Cream", url: "https://www.crazygames.com/embed/bad-ice-cream" },
-            { name: "Bad Ice Cream 2", url: "https://www.crazygames.com/embed/bad-ice-cream-2" },
-            { name: "Bad Ice Cream 3", url: "https://www.crazygames.com/embed/bad-ice-cream-3" },
-            { name: "Bob the Robber", url: "https://www.crazygames.com/embed/bob-the-robber" },
-            { name: "Bob the Robber 2", url: "https://www.crazygames.com/embed/bob-the-robber-2" },
-            { name: "Snail Bob", url: "https://www.crazygames.com/embed/snail-bob" },
-            { name: "Snail Bob 2", url: "https://www.crazygames.com/embed/snail-bob-2" },
-            { name: "Rooftop Snipers 2", url: "https://www.crazygames.com/embed/rooftop-snipers-2" },
-            { name: "House of Hazards", url: "https://www.crazygames.com/embed/house-of-hazards" },
-            { name: "Slope 2", url: "https://2slope.github.io/" },
+            { name: "Geometry Dash Subzero", url: "https://www.crazygames.com/embed/geometry-neon-dash-subzero" },
             { name: "2048", url: "https://www.crazygames.com/embed/2048" },
-            { name: "Flappy Bird", url: "https://www.crazygames.com/embed/flappy-bird" },
-            { name: "Snake", url: "https://www.mathsisfun.com/games/snake.html" },
-            { name: "Tetris", url: "https://www.crazygames.com/embed/tetris" },
-            { name: "Pac-Man", url: "https://www.crazygames.com/embed/pac-man" },
-            { name: "Minesweeper", url: "https://www.crazygames.com/embed/minesweeper" },
-            { name: "Basketball Stars", url: "https://www.crazygames.com/embed/basketball-stars" },
-            { name: "Run 3", url: "https://www.crazygames.com/embed/run-3" },
-            { name: "Among Us", url: "https://www.crazygames.com/embed/impostor" },
-            { name: "Vex 5", url: "https://www.crazygames.com/embed/vex-5" },
-            { name: "Wordle", url: "https://www.crazygames.com/embed/wordle" },
-            { name: "Solitaire", url: "https://www.crazygames.com/embed/solitaire-classic" },
-            { name: "Chess", url: "https://www.mathsisfun.com/games/chess.html" },
-            { name: "Whooo?", url: "https://www.crazygames.com/embed/whooo" }
+            { name: "Flow 2048 3D", url: "https://www.crazygames.com/embed/flow-2048-3d" },
+            { name: "Clone2048", url: "https://www.crazygames.com/embed/clone2048" },
+            { name: "Man Runner 2048", url: "https://www.crazygames.com/embed/man-runner-2048" },
+            { name: "2048 City Builder", url: "https://www.crazygames.com/embed/2048-city-builder" },
+            { name: "2048 Blocks Merge", url: "https://www.crazygames.com/embed/2048-blocks-merge" },
+            { name: "Slither.io", url: "https://www.crazygames.com/embed/slitherio" },
+            { name: "Mope.io", url: "https://www.crazygames.com/embed/mopeio" },
+            { name: "Zombs Royale", url: "https://www.crazygames.com/embed/zombsroyaleio" },
+            { name: "Paper.io 2", url: "https://www.crazygames.com/embed/paper-io-2" },
+            { name: "Bullet Force", url: "https://www.crazygames.com/embed/bullet-force-multiplayer" },
+            { name: "Time Shooter 3: SWAT", url: "https://www.crazygames.com/embed/time-shooter-3-swat" },
+            { name: "Deeeep.io", url: "https://www.crazygames.com/embed/deeeepio" },
+            { name: "Kirka.io", url: "https://www.crazygames.com/embed/kirka-io" },
+            { name: "Wings.io", url: "https://www.crazygames.com/embed/wingsio" },
+            { name: "Build Royale", url: "https://www.crazygames.com/embed/buildroyale-io" },
+            { name: "Powerline.io", url: "https://www.crazygames.com/embed/powerlineio" },
+            { name: "Friday Night Funkin'", url: "https://www.crazygames.com/embed/friday-night-funkin" },
+            { name: "Wordler", url: "https://www.crazygames.com/embed/wordler" },
+            { name: "Splix.io", url: "https://www.crazygames.com/embed/splixio" },
+            { name: "Superhex.io", url: "https://www.crazygames.com/embed/superhexio" },
+            { name: "Stabfish.io", url: "https://www.crazygames.com/embed/stabfish-io" },
+            { name: "StarBlast", url: "https://www.crazygames.com/embed/starblastio" },
+            { name: "Snake.io", url: "https://www.crazygames.com/embed/snake-io" },
+            { name: "Gulper.io", url: "https://www.crazygames.com/embed/gulper-io" },
+            { name: "Sploop.io", url: "https://www.crazygames.com/embed/sploop-io" },
+            { name: "MooMoo.io Sandbox", url: "https://www.crazygames.com/embed/moomoo-io-sandbox" },
+            { name: "Starve.io", url: "https://www.crazygames.com/embed/starve-io" },
+            { name: "War Brokers", url: "https://www.crazygames.com/embed/war-brokers" },
+            { name: "Snowball.io", url: "https://www.crazygames.com/embed/snowball-io" },
+            { name: "Hole.io", url: "https://www.crazygames.com/embed/hole-io" },
+            { name: "Arrow.io", url: "https://www.crazygames.com/embed/arrow-io" },
+            { name: "Aquapark.io", url: "https://www.crazygames.com/embed/aquapark-io" },
+            { name: "Wormax.io", url: "https://www.crazygames.com/embed/wormax-io" },
+            { name: "Drift Hunters", url: "https://www.crazygames.com/embed/drift-hunters" },
+            { name: "Short Life", url: "https://www.crazygames.com/embed/short-life" },
+            { name: "Short Ride", url: "https://www.crazygames.com/embed/short-ride" },
+            { name: "Russian Car Driver ZIL 130", url: "https://www.crazygames.com/embed/russian-car-driver-zil-130" },
+            { name: "The White Room 2", url: "https://www.crazygames.com/embed/the-white-room-2" },
+            { name: "Riddle School 5", url: "https://www.crazygames.com/embed/riddle-school-5" },
+            { name: "Volley Random", url: "https://www.crazygames.com/embed/volley-random" },
+            { name: "Love Tester 3", url: "https://www.crazygames.com/embed/love-tester-3" },
+            { name: "Fancy Pants Adventures: World 4 Part 2", url: "https://www.crazygames.com/embed/fancy-pants-adventures-world-4-part-2" },
+            { name: "Jeff the Killer: Horrendous Smile", url: "https://www.crazygames.com/embed/jeff-the-killer-horrendous-smile" }
         ];
         
         // --- NEW THEME DATA ---
@@ -782,23 +754,41 @@
         let allGenres = ["all"];
         
         // Process Links into Objects
-        const games = allGamesData.map((game, index) => {
+        // Use a Set to track processed titles (normalized) to avoid duplicates if lists overlap
+        const processedTitles = new Set();
+
+        const allGamesData = [
+            ...existingGamesList,
+            ...newGamesList
+        ];
+
+        const games = [];
+        
+        allGamesData.forEach((game, index) => {
+            const normalizedTitle = game.name.toLowerCase().trim();
+            
+            // If we've already seen this game (earlier entries take precedence), skip the duplicate
+            if (processedTitles.has(normalizedTitle)) {
+                return;
+            }
+            processedTitles.add(normalizedTitle);
+
             const title = game.name;
             const url = game.url;
             const slug = title.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
             
             // Infer genre from keywords
             let genre = 'casual';
-            if (slug.includes('io') || slug.includes('poxel') || slug.includes('evowars') || slug.includes('cuberealm') || slug.includes('smash-karts')) genre = 'io';
-            else if (slug.includes('puzzle') || slug.includes('mahjong') || slug.includes('connect') || slug.includes('word') || slug.includes('alchemy') || slug.includes('memory') || slug.includes('2048') || slug.includes('tetris') || slug.includes('minesweeper') || slug.includes('wordle') || slug.includes('solitaire') || slug.includes('chess') || slug.includes('guess-who') || slug.includes('hexa-sort') || slug.includes('nuts-and-bolts') || slug.includes('tap-away') || slug.includes('onet-connect') || slug.includes('whooo')) genre = 'puzzle';
-            else if (slug.includes('shooter') || slug.includes('war') || slug.includes('battle') || slug.includes('clash') || slug.includes('archers') || slug.includes('skillwarz') || slug.includes('aim') || slug.includes('pixel-warfare') || slug.includes('fortzone')) genre = 'action';
-            else if (slug.includes('drift') || slug.includes('race') || slug.includes('simulator') || slug.includes('truck') || slug.includes('moto')) genre = 'racing';
-            else if (slug.includes('obby') || slug.includes('jumper') || slug.includes('climber') || slug.includes('tower-square') || slug.includes('vex') || slug.includes('run-3') || slug.includes('flappy') || slug.includes('draw-climber') || slug.includes('slope') || slug.includes('bloxd')) genre = 'platformer';
+            if (slug.includes('io') || slug.includes('poxel') || slug.includes('evowars') || slug.includes('cuberealm') || slug.includes('smash-karts') || slug.includes('fortzone') || slug.includes('survev') || slug.includes('voxiom') || slug.includes('kour')) genre = 'io';
+            else if (slug.includes('puzzle') || slug.includes('mahjong') || slug.includes('connect') || slug.includes('word') || slug.includes('alchemy') || slug.includes('memory') || slug.includes('2048') || slug.includes('tetris') || slug.includes('minesweeper') || slug.includes('wordle') || slug.includes('solitaire') || slug.includes('chess') || slug.includes('guess-who') || slug.includes('hexa-sort') || slug.includes('nuts-and-bolts') || slug.includes('tap-away') || slug.includes('onet-connect') || slug.includes('whooo') || slug.includes('block') || slug.includes('jewels')) genre = 'puzzle';
+            else if (slug.includes('shooter') || slug.includes('war') || slug.includes('battle') || slug.includes('clash') || slug.includes('archers') || slug.includes('skillwarz') || slug.includes('aim') || slug.includes('pixel-warfare') || slug.includes('fortzone') || slug.includes('deadshot') || slug.includes('krunker') || slug.includes('shell')) genre = 'action';
+            else if (slug.includes('drift') || slug.includes('race') || slug.includes('simulator') || slug.includes('truck') || slug.includes('moto') || slug.includes('drive') || slug.includes('stunt') || slug.includes('traffic')) genre = 'racing';
+            else if (slug.includes('obby') || slug.includes('jumper') || slug.includes('climber') || slug.includes('tower-square') || slug.includes('vex') || slug.includes('run-3') || slug.includes('flappy') || slug.includes('draw-climber') || slug.includes('slope') || slug.includes('bloxd') || slug.includes('geometry') || slug.includes('parkour')) genre = 'platformer';
             else if (slug.includes('basketball') || slug.includes('golf') || slug.includes('100-meters') || slug.includes('billiards') || slug.includes('8-ball')) genre = 'sports';
-            else if (slug.includes('papas') || slug.includes('tycoon') || slug.includes('factory') || slug.includes('farmer') || slug.includes('mine') || slug.includes('ants') || slug.includes('farm') || slug.includes('clicker') || slug.includes('bitcoiner') || slug.includes('asmr') || slug.includes('slicing')) genre = 'simulation';
-            else if (slug.includes('uno') || slug.includes('poker') || slug.includes('mancala') || slug.includes('among-us') || slug.includes('family-feud') || slug.includes('impostor')) genre = 'board';
+            else if (slug.includes('papas') || slug.includes('tycoon') || slug.includes('factory') || slug.includes('farmer') || slug.includes('mine') || slug.includes('ants') || slug.includes('farm') || slug.includes('clicker') || slug.includes('bitcoiner') || slug.includes('asmr') || slug.includes('slicing') || slug.includes('gym')) genre = 'simulation';
+            else if (slug.includes('uno') || slug.includes('poker') || slug.includes('mancala') || slug.includes('among-us') || slug.includes('family-feud') || slug.includes('impostor') || slug.includes('foono')) genre = 'board';
             else if (slug.includes('adventure') || slug.includes('runic-curse') || slug.includes('jacksmith') || slug.includes('pac-man') || slug.includes('fireboy') || slug.includes('heroes-assemble') || slug.includes('diner-in-the-storm')) genre = 'adventure';
-            else if (slug.includes('crossy-road') || slug.includes('snake') || slug.includes('slice-master') || slug.includes('bubble-shooter')) genre = 'arcade';
+            else if (slug.includes('crossy-road') || slug.includes('snake') || slug.includes('slice-master') || slug.includes('bubble-shooter') || slug.includes('knife') || slug.includes('fruit') || slug.includes('cut-the-rope')) genre = 'arcade';
             
             if (!allGenres.includes(genre)) allGenres.push(genre);
             
@@ -808,10 +798,10 @@
             // Unique hue for card art
             const hue = (index * 137.5) % 360; 
 
-            // Check for featured (from old newGamesList)
-            const featured = ["among-us", "tetris", "subway-surfers", "2048", "chess", "impostor"].includes(slug);
+            // Check for featured (legacy curated list)
+            const featured = ["among-us", "tetris", "subway-surfers", "2048", "chess", "impostor", "smash-karts", "krunker-io", "shell-shockers", "slope-tunnel"].includes(slug);
 
-            return { id: index, title, url, genre, rating, slug, hue, image: null, featured: featured };
+            games.push({ id: index, title, url, genre, rating, slug, hue, image: null, featured: featured });
         });
 
         
@@ -848,6 +838,12 @@
 
         // --- Initialization ---
         function init() {
+            // Add password listeners up front so they're ready regardless of auth state
+            passwordBtn.addEventListener('click', checkPassword);
+            passwordInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') checkPassword();
+            });
+
             // Check password first
             let isAuth = false;
             try {
@@ -860,12 +856,6 @@
 
             if (isAuth) {
                 showApp();
-            } else {
-                // Add password listeners
-                passwordBtn.addEventListener('click', checkPassword);
-                passwordInput.addEventListener('keyup', (e) => {
-                    if (e.key === 'Enter') checkPassword();
-                });
             }
 
             renderFeaturedGames(); // Render featured games
@@ -931,13 +921,23 @@
         }
         
         // --- Password Logic ---
+        function normalizePassword(value) {
+            const raw = (value || "").trim();
+            const normalized = typeof raw.normalize === 'function' ? raw.normalize('NFKC') : raw;
+            return normalized.toLowerCase();
+        }
+
+        const NORMALIZED_SUPER_PASSWORD = normalizePassword(SUPER_PASSWORD);
+        
         function checkPassword() {
-            if (passwordInput.value === SUPER_PASSWORD) {
+            const enteredPassword = normalizePassword(passwordInput.value);
+            if (enteredPassword === NORMALIZED_SUPER_PASSWORD) {
                 try {
                     sessionStorage.setItem('nexus_auth', 'true');
                 } catch (e) {
                     console.warn("Session storage is not available. Auth will not be saved.");
                 }
+                passwordError.innerText = "";
                 showApp();
             } else {
                 passwordError.innerText = "Incorrect Password";
