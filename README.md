@@ -5,7 +5,6 @@ This is a single-page web application for a game hub, built with HTML, Tailwind 
 ## Features
 
 * **Game Library:** A large, filterable library of web-based games.
-* **Password Protection:** A "super password" gate (`nexus67`) protects access to the hub.
 * **Dynamic Theming:** Users can customize their experience with:
     * Light / Dark mode toggle.
     * 12 different solid-color background themes.
